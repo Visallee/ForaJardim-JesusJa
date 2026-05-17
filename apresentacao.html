@@ -1,0 +1,1555 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mapeamento de Tecnologias de Acesso a Dados - Ruby on Rails</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
+        background: #121212;
+        color: #e0e0e0;
+        overflow: hidden;
+      }
+
+      .presentation {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .slide {
+        width: 100%;
+        height: 100%;
+        display: none;
+        padding: 60px;
+        background: linear-gradient(135deg, #121212 0%, #1a1a1a 100%);
+        position: relative;
+        animation: slideIn 0.5s ease-in-out;
+        overflow-y: auto;
+      }
+
+      .slide.active {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Cores de tema */
+      .accent-red {
+        color: #cc0000;
+      }
+
+      .accent-green {
+        color: #4caf50;
+      }
+
+      /* CAPA */
+      .cover {
+        text-align: center;
+        background: linear-gradient(135deg, #1a1a1a 0%, #2d0a0a 100%);
+      }
+
+      .cover h1 {
+        font-size: 3.5em;
+        margin-bottom: 20px;
+        color: #cc0000;
+        font-weight: 700;
+      }
+
+      .cover h2 {
+        font-size: 2em;
+        margin-bottom: 40px;
+        color: #e0e0e0;
+        font-weight: 400;
+      }
+
+      .cover .institution {
+        font-size: 1.3em;
+        margin: 20px 0;
+        color: #888;
+      }
+
+      .cover .team {
+        margin-top: 60px;
+        padding-top: 40px;
+        border-top: 1px solid #444;
+      }
+
+      .cover .team-member {
+        font-size: 0.95em;
+        margin: 8px 0;
+        color: #aaa;
+      }
+
+      .cover .footer-info {
+        margin-top: 40px;
+        font-size: 0.9em;
+        color: #4caf50;
+      }
+
+      /* Títulos de Seção */
+      .slide h1 {
+        font-size: 2.8em;
+        margin-bottom: 40px;
+        color: #cc0000;
+        font-weight: 700;
+      }
+
+      .slide h2 {
+        font-size: 2em;
+        margin-bottom: 30px;
+        color: #4caf50;
+        font-weight: 600;
+      }
+
+      .slide h3 {
+        font-size: 1.5em;
+        margin: 25px 0 15px 0;
+        color: #e0e0e0;
+        font-weight: 600;
+      }
+
+      /* Conteúdo */
+      .slide p {
+        font-size: 1.1em;
+        line-height: 1.8;
+        margin-bottom: 20px;
+        color: #c0c0c0;
+      }
+
+      .slide ul {
+        margin-left: 40px;
+        margin-bottom: 20px;
+      }
+
+      .slide li {
+        font-size: 1.05em;
+        line-height: 1.8;
+        margin-bottom: 12px;
+        color: #c0c0c0;
+      }
+
+      .slide li::before {
+        content: "▸ ";
+        color: #4caf50;
+        font-weight: bold;
+        margin-right: 8px;
+      }
+
+      /* Código */
+      pre {
+        background: #1e1e1e;
+        border-left: 4px solid #cc0000;
+        padding: 20px;
+        margin: 20px 0;
+        border-radius: 4px;
+        overflow-x: auto;
+        font-size: 0.9em;
+      }
+
+      code {
+        font-family: "Courier New", monospace;
+        color: #d4d4d4;
+      }
+
+      /* Syntax Highlighting */
+      .keyword {
+        color: #569cd6;
+        font-weight: bold;
+      }
+
+      .string {
+        color: #ce9178;
+      }
+
+      .comment {
+        color: #6a9955;
+        font-style: italic;
+      }
+
+      .method {
+        color: #dcdcaa;
+      }
+
+      .number {
+        color: #b5cea8;
+      }
+
+      /* Tabelas */
+      table {
+        width: 100%;
+        margin: 20px 0;
+        border-collapse: collapse;
+        background: #1e1e1e;
+        border-radius: 4px;
+        overflow: hidden;
+      }
+
+      th {
+        background: #cc0000;
+        color: #fff;
+        padding: 12px;
+        text-align: left;
+        font-weight: 600;
+      }
+
+      td {
+        padding: 12px;
+        border-bottom: 1px solid #333;
+        color: #c0c0c0;
+      }
+
+      tr:hover {
+        background: #2a2a2a;
+      }
+
+      /* Caixas de Destaque */
+      .highlight-box {
+        background: #2d0a0a;
+        border-left: 4px solid #cc0000;
+        padding: 20px;
+        margin: 20px 0;
+        border-radius: 4px;
+      }
+
+      .highlight-box.green {
+        background: #0a2d1a;
+        border-left-color: #4caf50;
+      }
+
+      .highlight-box strong {
+        color: #cc0000;
+      }
+
+      .highlight-box.green strong {
+        color: #4caf50;
+      }
+
+      /* Comparação lado a lado */
+      .comparison {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin: 20px 0;
+      }
+
+      .comparison-item {
+        background: #1e1e1e;
+        padding: 20px;
+        border-radius: 4px;
+        border-left: 4px solid #4caf50;
+      }
+
+      .comparison-item.sql {
+        border-left-color: #cc0000;
+      }
+
+      .comparison-item h4 {
+        color: #4caf50;
+        margin-bottom: 15px;
+        font-size: 1.1em;
+      }
+
+      .comparison-item.sql h4 {
+        color: #cc0000;
+      }
+
+      /* Gráficos/tabelas de performance */
+      .performance-chart {
+        background: #1e1e1e;
+        padding: 20px;
+        border-radius: 4px;
+        margin: 20px 0;
+      }
+
+      .chart-bar {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+
+      .chart-label {
+        width: 150px;
+        color: #aaa;
+        font-size: 0.9em;
+      }
+
+      .chart-value {
+        flex: 1;
+        background: #333;
+        height: 30px;
+        margin: 0 15px;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        padding-left: 10px;
+        color: #4caf50;
+        font-weight: bold;
+      }
+
+      .chart-value.slow {
+        background: #cc0000;
+        color: #fff;
+      }
+
+      /* Slide Counter - Posição discreta */
+      .slide-counter {
+        position: fixed;
+        top: 20px;
+        right: 30px;
+        color: #666;
+        font-size: 0.85em;
+        background: rgba(0, 0, 0, 0.3);
+        padding: 8px 15px;
+        border-radius: 20px;
+        border: 1px solid #333;
+      }
+
+      /* Indicador visual de progresso */
+      .progress-bar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        height: 3px;
+        background: #cc0000;
+        z-index: 999;
+      }
+
+      /* Responsivo */
+      @media (max-width: 768px) {
+        .slide {
+          padding: 30px;
+        }
+
+        .cover h1 {
+          font-size: 2em;
+        }
+
+        .slide h1 {
+          font-size: 1.8em;
+        }
+
+        .comparison {
+          grid-template-columns: 1fr;
+        }
+
+        pre {
+          font-size: 0.75em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="presentation">
+      <!-- SLIDE 1: CAPA -->
+      <div class="slide cover active">
+        <div>
+          <h1>MAPEAMENTO DE TECNOLOGIAS</h1>
+          <h2>DE ACESSO A DADOS</h2>
+          <h2 style="font-size: 1.8em; color: #4caf50; margin-bottom: 60px">
+            Ruby on Rails
+          </h2>
+
+          <div class="institution">
+            <strong style="color: #e0e0e0">INSTITUTO FEDERAL DE SERGIPE</strong
+            ><br />
+            Campus Lagarto
+          </div>
+
+          <p style="color: #888; margin: 10px 0">
+            Bacharelado em Sistemas de Informação
+          </p>
+          <p style="color: #888">Tópicos Especiais em Banco de Dados</p>
+
+          <div class="team" style="margin-top: 80px">
+            <p style="color: #888; margin-bottom: 20px">
+              <strong>Orientador:</strong> Diego Armando de Oliveira Meneses
+            </p>
+            <p style="margin-bottom: 10px; font-weight: 600; color: #e0e0e0">
+              Equipe:
+            </p>
+            <div class="team-member">
+              José Gusthavo Santos Menezes — 2024002588
+            </div>
+            <div class="team-member">
+              Rauan Phelipe Nascimento de Jesus — 2024003039
+            </div>
+            <div class="team-member">Victor Silva do Vale — 2024002443</div>
+            <div class="team-member">William Silva Santos — 2024000215</div>
+          </div>
+
+          <div class="footer-info">Lagarto, 2026</div>
+        </div>
+      </div>
+
+      <!-- SLIDE 2: SEÇÃO A - Introdução -->
+      <div class="slide">
+        <h1>SEÇÃO A: Contexto da Linguagem</h1>
+        <h2>Introdução ao Ruby</h2>
+
+        <p>
+          Ruby é uma linguagem de programação
+          <strong
+            >dinâmica, interpretada e totalmente orientada a objetos</strong
+          >, criada em 1995 por Yukihiro Matsumoto (Matz).
+        </p>
+
+        <h3>Filosofia de Projeto</h3>
+        <ul>
+          <li>
+            Código escrito para <strong>humanos lerem</strong>, não apenas
+            máquinas executarem
+          </li>
+          <li>Deve ser <strong>divertido</strong> programar em Ruby</li>
+          <li>
+            Foco em <strong>produtividade</strong> e
+            <strong>legibilidade</strong>
+          </li>
+        </ul>
+
+        <h3>Contexto Histórico</h3>
+        <ul>
+          <li>
+            2004: Surgimento do <strong>Ruby on Rails</strong> — revolucionou
+            desenvolvimento web
+          </li>
+          <li>Comunidade vibrante e colaborativa focada em boas práticas</li>
+          <li>Linguagem eleita entre as mais queridas por desenvolvedores</li>
+        </ul>
+      </div>
+
+      <!-- SLIDE 3: Orientação a Objetos Pura -->
+      <div class="slide">
+        <h1>Paradigma: Orientação a Objetos Pura</h1>
+
+        <h2>Ruby: "Tudo é Objeto"</h2>
+        <p>
+          Diferente de Java e C++, em Ruby
+          <strong>até tipos primitivos são objetos</strong>.
+        </p>
+
+        <h3>Exemplo Prático</h3>
+        <pre><code><span class="comment"># Em Ruby, inteiros são objetos</span>
+numero = <span class="number">42</span>
+puts numero.<span class="method">class</span>              <span class="comment"># => Integer</span>
+puts numero.<span class="method">even?</span>              <span class="comment"># => true</span>
+puts numero.<span class="method">times</span> { |i| puts i }  <span class="comment"># imprime 0 a 41</span>
+
+<span class="comment"># Strings são objetos</span>
+mensagem = <span class="string">"Ruby é incrível"</span>
+puts mensagem.<span class="method">upcase</span>    <span class="comment"># => "RUBY É INCRÍVEL"</span>
+puts mensagem.<span class="method">length</span>   <span class="comment"># => 15</span></code></pre>
+
+        <div class="highlight-box">
+          <strong>Benefício:</strong> Experiência coerente — mesma lógica OO
+          funciona uniformemente em todo o código.
+        </div>
+      </div>
+
+      <!-- SLIDE 4: Encapsulamento -->
+      <div class="slide">
+        <h1>Encapsulamento em Ruby</h1>
+
+        <p>Modificadores de acesso controlam visibilidade de métodos:</p>
+
+        <ul>
+          <li><strong>public:</strong> Chamáveis de qualquer lugar (padrão)</li>
+          <li>
+            <strong>private:</strong> Só dentro da mesma classe, sem receptor
+            explícito
+          </li>
+          <li>
+            <strong>protected:</strong> Dentro da classe ou por subclasses
+          </li>
+        </ul>
+
+        <h3>Exemplo</h3>
+        <pre><code><span class="keyword">class</span> <span class="method">Personagem</span>
+  <span class="keyword">public</span>
+  <span class="keyword">def</span> <span class="method">exibir_informacoes</span>
+    puts <span class="string">"Personagem: #{@nome}"</span>
+  <span class="keyword">end</span>
+
+  <span class="keyword">private</span>
+  <span class="keyword">def</span> <span class="method">calcular_vida_total</span>
+    @vida + <span class="number">10</span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span></code></pre>
+      </div>
+
+      <!-- SLIDE 5: Tipagem -->
+      <div class="slide">
+        <h1>Sistema de Tipagem: Dinâmica e Forte</h1>
+
+        <h2>Tipagem Dinâmica</h2>
+        <p>
+          Variáveis não têm tipos declarados — tipo é determinado em
+          <strong>runtime</strong>.
+        </p>
+
+        <pre><code>valor = <span class="number">42</span>        <span class="comment"># Integer</span>
+valor = <span class="string">"texto"</span>   <span class="comment"># String</span>
+valor = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]  <span class="comment"># Array</span>
+valor = <span class="keyword">true</span>      <span class="comment"># TrueClass</span></code></pre>
+
+        <h2>Tipagem Forte</h2>
+        <p>
+          <strong>Sem conversão implícita perigosa</strong> entre tipos
+          incompatíveis.
+        </p>
+
+        <pre><code><span class="comment"># Ruby - Erro!</span>
+resultado = <span class="number">5</span> + <span class="string">"10"</span>  <span class="comment"># TypeError</span>
+
+<span class="comment"># Conversão explícita</span>
+resultado = <span class="number">5</span> + <span class="string">"10"</span>.<span class="method">to_i</span>  <span class="comment"># => 15</span></code></pre>
+      </div>
+
+      <!-- SLIDE 6: Duck Typing -->
+      <div class="slide">
+        <h1>Duck Typing</h1>
+
+        <p><em>"Se grasna como um pato e anda como um pato, é um pato."</em></p>
+
+        <p>
+          O que importa não é a <strong>classe de um objeto</strong>, mas se ele
+          <strong>responde aos métodos esperados</strong>.
+        </p>
+
+        <h3>Exemplo</h3>
+        <pre><code><span class="keyword">class</span> <span class="method">Guerreiro</span>
+  <span class="keyword">def</span> <span class="method">atacar</span>; <span class="string">"ataca com espada!"</span>; <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="keyword">class</span> <span class="method">Mago</span>
+  <span class="keyword">def</span> <span class="method">atacar</span>; <span class="string">"lança feitiço!"</span>; <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="keyword">def</span> <span class="method">executar_combate</span>(combatente)
+  puts combatente.<span class="method">atacar</span>
+<span class="keyword">end</span>
+
+executar_combate(Guerreiro.<span class="method">new</span>)  <span class="comment"># Funciona!</span>
+executar_combate(Mago.<span class="method">new</span>)      <span class="comment"># Funciona!</span></code></pre>
+
+        <div class="highlight-box green">
+          <strong>Resultado:</strong> Código mais flexível e reutilizável sem
+          herança explícita.
+        </div>
+      </div>
+
+      <!-- SLIDE 7: Ruby on Rails -->
+      <div class="slide">
+        <h1>O Ecossistema Ruby: Rails</h1>
+
+        <h2>Ruby on Rails (2004)</h2>
+        <p>
+          Framework web que <strong>revolucionou</strong> o desenvolvimento,
+          popularizando conceitos modernos.
+        </p>
+
+        <h3>Padrão MVC</h3>
+        <ul>
+          <li><strong>Model:</strong> Lógica de dados e negócio</li>
+          <li><strong>View:</strong> Interface de usuário</li>
+          <li><strong>Controller:</strong> Orquestração entre Model e View</li>
+        </ul>
+
+        <h3>Duas Filosofias Centrais</h3>
+        <div class="highlight-box">
+          <strong>Convention over Configuration (CoC):</strong> Rails assume
+          convenções sensatas. Classe <code>Personagem</code> mapeia tabela
+          <code>personagens</code> automaticamente.
+        </div>
+
+        <div class="highlight-box green">
+          <strong>Don't Repeat Yourself (DRY):</strong> Evita duplicação através
+          de abstrações e gems reutilizáveis.
+        </div>
+      </div>
+
+      <!-- SLIDE 8: Gems -->
+      <div class="slide">
+        <h1>Gems: O Ecossistema de Bibliotecas</h1>
+
+        <p>
+          Ruby possui um ecossistema rico de bibliotecas (gems) gerenciadas por
+          <strong>RubyGems</strong>.
+        </p>
+
+        <h3>Gems Populares</h3>
+        <ul>
+          <li>
+            <strong>ActiveRecord:</strong> ORM padrão do Rails para acesso a
+            banco de dados
+          </li>
+          <li>
+            <strong>Devise:</strong> Autenticação e gerenciamento de usuários
+          </li>
+          <li><strong>Pundit:</strong> Autorização e controle de permissões</li>
+          <li><strong>RSpec:</strong> Framework de testes</li>
+          <li><strong>Puma:</strong> Servidor web de alta performance</li>
+          <li><strong>mysql2:</strong> Driver direto para MySQL</li>
+        </ul>
+
+        <h3>Estrutura de Projeto Rails</h3>
+        <pre><code>projeto-rails/
+├── app/models/       # Camada de dados
+├── app/controllers/  # Lógica de requisição
+├── app/views/        # Templates HTML/JSON
+├── config/           # Configuração
+├── db/migrate/       # Versionamento do banco
+└── Gemfile           # Dependências</code></pre>
+      </div>
+
+      <!-- SLIDE 9: SEÇÃO B - Introdução -->
+      <div class="slide">
+        <h1>SEÇÃO B: Análise das Tecnologias</h1>
+        <h2>Camadas de Acesso a Dados</h2>
+
+        <p>
+          Em uma aplicação Rails, o acesso a dados é estratificado em
+          <strong>3 níveis de abstração</strong>:
+        </p>
+
+        <h3>O Espectro de Abstração</h3>
+        <pre><code style="text-align: center; border: none; background: transparent;"><span class="string">Máxima Abstração ←</span>                    <span class="string">→ Máximo Controle</span>
+
+    ORM           Query Builder        Raw Queries
+(ActiveRecord)      (Arel)           (SQL Direto)</code></pre>
+
+        <ul>
+          <li>
+            <strong>ORM:</strong> Camada de mais alta abstração — trabalhar com
+            objetos Ruby
+          </li>
+          <li>
+            <strong>Query Builder:</strong> Nível intermediário — controle fino
+            mantendo abstração
+          </li>
+          <li>
+            <strong>Raw Queries:</strong> Acesso direto — controle total,
+            performance máxima
+          </li>
+        </ul>
+      </div>
+
+      <!-- SLIDE 10: ActiveRecord -->
+      <div class="slide">
+        <h1>ORM: ActiveRecord</h1>
+        <h2>O Padrão Ouro do Rails</h2>
+
+        <p>
+          ActiveRecord é o <strong>ORM padrão desde 2004</strong>, mapeando
+          tabelas em classes Ruby.
+        </p>
+
+        <h3>CRUD Automático</h3>
+        <pre><code><span class="keyword">class</span> <span class="method">Personagem</span> &lt; <span class="method">ApplicationRecord</span>
+<span class="keyword">end</span>
+
+personagem = <span class="method">Personagem</span>.<span class="method">create</span>(nome: <span class="string">"Arthos"</span>, nivel: <span class="number">1</span>)
+personagem = <span class="method">Personagem</span>.<span class="method">find</span>(<span class="number">1</span>)
+personagem.<span class="method">update</span>(nivel: <span class="number">2</span>)
+personagem.<span class="method">destroy</span></code></pre>
+
+        <h3>Convenções Automáticas</h3>
+        <table>
+          <tr>
+            <th>Convenção</th>
+            <th>Exemplo</th>
+          </tr>
+          <tr>
+            <td>Classe (singular)</td>
+            <td><code>Personagem</code></td>
+          </tr>
+          <tr>
+            <td>Tabela (plural)</td>
+            <td><code>personagens</code></td>
+          </tr>
+          <tr>
+            <td>Chave primária</td>
+            <td><code>id</code></td>
+          </tr>
+          <tr>
+            <td>Timestamps</td>
+            <td><code>created_at, updated_at</code></td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- SLIDE 11: Relacionamentos -->
+      <div class="slide">
+        <h1>Relacionamentos no ActiveRecord</h1>
+
+        <h3>1:N (Um para Muitos)</h3>
+        <pre><code><span class="keyword">class</span> <span class="method">Personagem</span> &lt; <span class="method">ApplicationRecord</span>
+  <span class="keyword">has_many</span> <span class="method">:itens</span>
+  <span class="keyword">has_many</span> <span class="method">:missoes</span>
+<span class="keyword">end</span>
+
+<span class="keyword">class</span> <span class="method">Item</span> &lt; <span class="method">ApplicationRecord</span>
+  <span class="keyword">belongs_to</span> <span class="method">:personagem</span>
+<span class="keyword">end</span></code></pre>
+
+        <h3>N:N (Muitos para Muitos)</h3>
+        <pre><code><span class="keyword">class</span> <span class="method">Personagem</span> &lt; <span class="method">ApplicationRecord</span>
+  <span class="keyword">has_many</span> <span class="method">:personagem_missoes</span>
+  <span class="keyword">has_many</span> <span class="method">:missoes</span>, through: <span class="method">:personagem_missoes</span>
+<span class="keyword">end</span>
+
+personagem = <span class="method">Personagem</span>.<span class="method">find</span>(<span class="number">1</span>)
+personagem.<span class="method">missoes</span>              <span class="comment"># Lista todas as missões</span>
+personagem.<span class="method">missoes</span> &lt;&lt; missao  <span class="comment"># Adiciona missão</span></code></pre>
+      </div>
+
+      <!-- SLIDE 12: Queries ActiveRecord -->
+      <div class="slide">
+        <h1>Queries com ActiveRecord</h1>
+
+        <h3>API Fluente</h3>
+        <pre><code><span class="comment"># SELECT e filtragem</span>
+<span class="method">Personagem</span>.<span class="method">all</span>
+<span class="method">Personagem</span>.<span class="method">where</span>(nivel: <span class="number">10</span>)
+<span class="method">Personagem</span>.<span class="method">where</span>(<span class="string">"nivel > ?"</span>, <span class="number">5</span>)
+
+<span class="comment"># Ordenação e limite</span>
+<span class="method">Personagem</span>.<span class="method">order</span>(nome: <span class="method">:asc</span>).<span class="method">limit</span>(<span class="number">10</span>)
+
+<span class="comment"># Joins e eager loading</span>
+<span class="method">Personagem</span>.<span class="method">joins</span>(<span class="method">:missoes</span>)
+<span class="method">Personagem</span>.<span class="method">includes</span>(<span class="method">:missoes</span>)  <span class="comment"># Evita N+1!</span>
+
+<span class="comment"># Agregação</span>
+<span class="method">Personagem</span>.<span class="method">count</span>
+<span class="method">Personagem</span>.<span class="method">average</span>(<span class="method">:nivel</span>)
+<span class="method">Personagem</span>.<span class="method">maximum</span>(<span class="method">:nivel</span>)</code></pre>
+      </div>
+
+      <!-- SLIDE 13: Vantagens e Desvantagens ActiveRecord -->
+      <div class="slide">
+        <h1>ActiveRecord: Vantagens e Desvantagens</h1>
+
+        <div class="comparison">
+          <div class="comparison-item">
+            <h4>✅ Vantagens</h4>
+            <ul style="margin: 0">
+              <li>Sem SQL explícito</li>
+              <li>Proteção SQL Injection automática</li>
+              <li>Portabilidade (MySQL, PostgreSQL, SQLite)</li>
+              <li>Associações automáticas</li>
+              <li>Migrações versionadas</li>
+            </ul>
+          </div>
+          <div class="comparison-item green">
+            <h4>❌ Desvantagens</h4>
+            <ul style="margin: 0">
+              <li>SQL subótimo em queries complexas</li>
+              <li>Problema N+1 sem cuidado</li>
+              <li>Overhead de abstração</li>
+              <li>Curva aprendizado recursos avançados</li>
+              <li>Limitado para queries muito especializadas</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 14: Query Builder -->
+      <div class="slide">
+        <h1>Query Builder: Arel</h1>
+
+        <p>
+          <strong>Nível intermediário</strong> entre ORM e SQL puro. Oferece
+          controle fino mantendo abstração.
+        </p>
+
+        <h3>Construção Programática</h3>
+        <pre><code>tabela = <span class="method">Personagem</span>.<span class="method">arel_table</span>
+
+query = tabela
+  .<span class="method">project</span>(tabela[<span class="method">:nome</span>], tabela[<span class="method">:nivel</span>])
+  .<span class="method">where</span>(tabela[<span class="method">:nivel</span>].<span class="method">gt</span>(<span class="number">5</span>))
+  .<span class="method">order</span>(tabela[<span class="method">:nome</span>].<span class="method">asc</span>)
+  .<span class="method">limit</span>(<span class="number">10</span>)
+
+<span class="method">Personagem</span>.<span class="method">find_by_sql</span>(query.<span class="method">to_sql</span>)</code></pre>
+
+        <h3>Operadores Relacionais</h3>
+        <pre><code>tabela[<span class="method">:nivel</span>].<span class="method">eq</span>(<span class="number">10</span>)          <span class="comment"># = 10</span>
+tabela[<span class="method">:nivel</span>].<span class="method">gt</span>(<span class="number">5</span>)          <span class="comment"># > 5</span>
+tabela[<span class="method">:nome</span>].<span class="method">matches</span>(<span class="string">'%Arthos%'</span>)  <span class="comment"># LIKE</span>
+tabela[<span class="method">:nivel</span>].<span class="method">in</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])    <span class="comment"># IN</span></code></pre>
+      </div>
+
+      <!-- SLIDE 15: Raw Queries -->
+      <div class="slide">
+        <h1>Raw Queries: Acesso Direto</h1>
+
+        <p>
+          SQL explícito <strong>sem abstração</strong> — controle total sobre
+          banco.
+        </p>
+
+        <h3>Executar Raw Queries</h3>
+        <pre><code><span class="comment"># Método 1: Connection direta</span>
+connection = <span class="method">ActiveRecord</span>::<span class="method">Base</span>.<span class="method">connection</span>
+resultado = connection.<span class="method">execute</span>(<span class="string">"SELECT * FROM personagens WHERE nivel > 5"</span>)
+
+<span class="comment"># Método 2: Via find_by_sql (RECOMENDADO)</span>
+personagens = <span class="method">Personagem</span>.<span class="method">find_by_sql</span>(
+  <span class="string">"SELECT * FROM personagens WHERE nivel > ? ORDER BY nome"</span>, [<span class="number">5</span>]
+)
+
+<span class="comment"># Método 3: CTE complexa</span>
+query = <span class="string">&lt;&lt;-SQL
+  WITH personagens_ativos AS (
+    SELECT id, nome FROM personagens WHERE ativo = 1
+  )
+  SELECT * FROM personagens_ativos
+  WHERE created_at > NOW() - INTERVAL 7 DAY
+SQL</span></code></pre>
+
+        <div class="highlight-box">
+          <strong>⚠️ Cuidado:</strong> SQL Injection! Sempre parametrize com
+          <code>?</code>.
+        </div>
+      </div>
+
+      <!-- SLIDE 16: Comparação Consolidada -->
+      <div class="slide">
+        <h1>Comparação: ORM vs Query Builder vs Raw</h1>
+
+        <table>
+          <tr>
+            <th>Critério</th>
+            <th>ORM (ActiveRecord)</th>
+            <th>Query Builder (Arel)</th>
+            <th>Raw Query (SQL)</th>
+          </tr>
+          <tr>
+            <td>Curva de aprendizado</td>
+            <td>Baixa</td>
+            <td>Média</td>
+            <td>Alta</td>
+          </tr>
+          <tr>
+            <td>Performance</td>
+            <td>Moderada</td>
+            <td>Boa</td>
+            <td>Excelente</td>
+          </tr>
+          <tr>
+            <td>SQL Injection</td>
+            <td>Automática</td>
+            <td>Automática</td>
+            <td>Manual</td>
+          </tr>
+          <tr>
+            <td>Controle</td>
+            <td>Baixo/Médio</td>
+            <td>Médio/Alto</td>
+            <td>Total</td>
+          </tr>
+          <tr>
+            <td>Portabilidade</td>
+            <td>Alta</td>
+            <td>Alta</td>
+            <td>Baixa</td>
+          </tr>
+          <tr>
+            <td>Manutenibilidade</td>
+            <td>Alta</td>
+            <td>Média</td>
+            <td>Média</td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- SLIDE 17: SEÇÃO C - Introdução -->
+      <div class="slide">
+        <h1>SEÇÃO C: Comparação Crítica</h1>
+        <h2>Trade-offs Reais em Produção</h2>
+
+        <p>
+          Pergunta central:
+          <em
+            >"O ActiveRecord perde muita performance comparado a SQL puro?"</em
+          >
+        </p>
+
+        <h3>Espectro de Abstração vs Controle</h3>
+        <div
+          style="
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 4px;
+            margin: 20px 0;
+            text-align: center;
+          "
+        >
+          <p style="margin: 0; color: #4caf50; font-size: 0.9em">
+            ← Maior Abstração
+          </p>
+          <p style="margin: 10px 0; font-size: 1.1em">
+            <strong style="color: #cc0000">ORM</strong> →
+            <strong style="color: #dcdcaa">Query Builder</strong> →
+            <strong style="color: #4caf50">Raw SQL</strong>
+          </p>
+          <p style="margin: 10px 0; color: #888; font-size: 0.9em">
+            Maior Controle →
+          </p>
+        </div>
+
+        <ul>
+          <li>
+            <strong>Esquerda:</strong> Melhor legibilidade, menos código,
+            proteção automática — menor performance
+          </li>
+          <li>
+            <strong>Direita:</strong> Máximo controle e performance — código
+            verboso, mais risco de erros
+          </li>
+        </ul>
+      </div>
+
+      <!-- SLIDE 18: Problema N+1 -->
+      <div class="slide">
+        <h1>A Armadilha N+1 Queries</h1>
+
+        <h3>O Problema</h3>
+        <pre><code><span class="comment"># ❌ PROBLEMA: 1 query + N queries (101 total!)</span>
+personagens = <span class="method">Personagem</span>.<span class="method">limit</span>(<span class="number">10</span>)
+personagens.<span class="method">each</span> <span class="keyword">do</span> |p|
+  puts p.<span class="method">itens</span>.<span class="method">count</span>  <span class="comment"># Query por personagem!</span>
+<span class="keyword">end</span></code></pre>
+
+        <h3>A Solução: Eager Loading</h3>
+        <pre><code><span class="comment"># ✅ SOLUÇÃO: Apenas 2 queries!</span>
+personagens = <span class="method">Personagem</span>.<span class="method">includes</span>(<span class="method">:itens</span>).<span class="method">limit</span>(<span class="number">10</span>)
+personagens.<span class="method">each</span> <span class="keyword">do</span> |p|
+  puts p.<span class="method">itens</span>.<span class="method">count</span>  <span class="comment"># Sem query adicional!</span>
+<span class="keyword">end</span></code></pre>
+
+        <div class="highlight-box green">
+          <strong>Conclusão:</strong> O problema N+1 é a verdadeira armadilha,
+          não o overhead do ORM. Uma única linha (<code>.includes()</code>)
+          reduz 101 queries para 2!
+        </div>
+      </div>
+
+      <!-- SLIDE 19: Migrações -->
+      <div class="slide">
+        <h1>Migrações Versionadas</h1>
+
+        <h3>O Conceito</h3>
+        <p>
+          Mudanças de esquema expressos como
+          <strong>código Ruby versionado</strong> — não scripts SQL soltos.
+        </p>
+
+        <h3>Exemplo de Migração</h3>
+        <pre><code><span class="keyword">class</span> <span class="method">CreatePersonagens</span> &lt; <span class="method">ActiveRecord</span>::<span class="method">Migration</span>[<span class="number">8.1</span>]
+  <span class="keyword">def</span> <span class="method">change</span>
+    <span class="keyword">create_table</span> <span class="method">:personagens</span> <span class="keyword">do</span> |t|
+      t.<span class="method">string</span>  <span class="method">:nome</span>,  null: <span class="keyword">false</span>
+      t.<span class="method">integer</span> <span class="method">:nivel</span>, default: <span class="number">1</span>
+      t.<span class="method">timestamps</span>
+    <span class="keyword">end</span>
+
+    <span class="keyword">add_index</span> <span class="method">:personagens</span>, <span class="method">:nome</span>, unique: <span class="keyword">true</span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span></code></pre>
+
+        <h3>Comandos</h3>
+        <pre><code>rails db:migrate           <span class="comment"># Executar migrações</span>
+rails db:rollback          <span class="comment"># Desfazer última</span>
+rails db:migrate:status    <span class="comment"># Verificar status</span></code></pre>
+      </div>
+
+      <!-- SLIDE 20: Benchmark de Performance -->
+      <div class="slide">
+        <h1>Benchmark: Análise de Performance</h1>
+
+        <p>
+          <strong>Cenário:</strong> Banco com 10.000 personagens e 100.000
+          itens, buscando 100 personagens com seus itens.
+        </p>
+
+        <h3>Resultados Práticos</h3>
+        <div class="performance-chart">
+          <div class="chart-bar">
+            <div class="chart-label">N+1 (sem includes)</div>
+            <div class="chart-value slow" style="width: 100%">
+              101 queries, 2500ms
+            </div>
+          </div>
+
+          <div class="chart-bar">
+            <div class="chart-label">ActiveRecord + includes</div>
+            <div class="chart-value" style="width: 6%">2 queries, 150ms ⭐</div>
+          </div>
+
+          <div class="chart-bar">
+            <div class="chart-label">Query Builder (Arel)</div>
+            <div class="chart-value" style="width: 3.2%">1 query, 80ms</div>
+          </div>
+
+          <div class="chart-bar">
+            <div class="chart-label">SQL Puro</div>
+            <div class="chart-value" style="width: 2.4%">1 query, 60ms</div>
+          </div>
+        </div>
+
+        <div class="highlight-box green">
+          <strong>Descoberta-chave:</strong> Diferença entre
+          ActiveRecord+includes e SQL puro é apenas <strong>~25%</strong>. Muito
+          menor que a diferença entre N+1 e includes (16x!).
+        </div>
+      </div>
+
+      <!-- SLIDE 21: SEÇÃO D - Introdução -->
+      <div class="slide">
+        <h1>SEÇÃO D: Equivalência de Implementação</h1>
+        <h2>7 Operações CRUD do Sistema RPG</h2>
+
+        <p>
+          Demonstração prática comparando
+          <strong>SQL Puro vs ActiveRecord</strong> usando o projeto real.
+        </p>
+
+        <h3>Modelo de Dados do RPG</h3>
+        <ul>
+          <li>
+            <strong>Personagem:</strong> id, nome, nivel, id_inventario_id,
+            timestamps
+          </li>
+          <li>
+            <strong>Inventario:</strong> id, capacidade_maxima, euro, timestamps
+          </li>
+          <li>
+            <strong>Item:</strong> id, id_inventario_id, nome, tipo, raridade,
+            peso, timestamps
+          </li>
+          <li><strong>Missao:</strong> id, título, descricao, timestamps</li>
+          <li>
+            <strong>PersonagemMissao:</strong> id, id_personagem_id,
+            id_missao_id (N:N)
+          </li>
+        </ul>
+      </div>
+
+      <!-- SLIDE 22: Query 1 SELECT -->
+      <div class="slide">
+        <h1>Query 1: SELECT Simples</h1>
+        <h3>Buscar Todos os Personagens</h3>
+
+        <p><strong>Endpoint:</strong> <code>GET /personagems</code></p>
+
+        <div class="comparison">
+          <div class="comparison-item sql">
+            <h4>SQL Puro</h4>
+            <pre><code><span class="keyword">SELECT</span> id, nome, nivel, 
+       id_inventario_id, created_at, updated_at
+<span class="keyword">FROM</span> personagens;</code></pre>
+          </div>
+          <div class="comparison-item">
+            <h4>ActiveRecord</h4>
+            <pre><code><span class="keyword">def</span> <span class="method">index</span>
+  @personagems = <span class="method">Personagem</span>.<span class="method">all</span>
+  <span class="keyword">render</span> json: @personagems
+<span class="keyword">end</span></code></pre>
+          </div>
+        </div>
+
+        <h3>Resultado da API</h3>
+        <p>
+          Status: <span style="color: #4caf50">200 OK</span> | Tempo:
+          <span style="color: #4caf50">233 ms</span> | Tamanho: 890 B
+        </p>
+      </div>
+
+      <!-- SLIDE 23: Query 2 SELECT JOIN -->
+      <div class="slide">
+        <h1>Query 2: SELECT com JOIN</h1>
+        <h3>Buscar Inventário com Itens (1:N)</h3>
+
+        <p><strong>Endpoint:</strong> <code>GET /inventarios/1</code></p>
+
+        <div class="comparison">
+          <div class="comparison-item sql">
+            <h4>SQL Puro</h4>
+            <pre><code><span class="keyword">SELECT</span> i.id, i.capacidade_maxima,
+       it.id <span class="keyword">AS</span> item_id, it.nome
+<span class="keyword">FROM</span> inventarios i
+<span class="keyword">LEFT</span> <span class="keyword">JOIN</span> items it 
+  <span class="keyword">ON</span> i.id = it.id_inventario_id
+<span class="keyword">WHERE</span> i.id = <span class="number">1</span>;</code></pre>
+          </div>
+          <div class="comparison-item">
+            <h4>ActiveRecord</h4>
+            <pre><code><span class="keyword">def</span> <span class="method">show</span>
+  @inventario = <span class="method">Inventario</span>
+    .<span class="method">includes</span>(<span class="method">:items</span>)
+    .<span class="method">find</span>(params[<span class="method">:id</span>])
+  <span class="keyword">render</span> json: 
+    @inventario.<span class="method">as_json</span>(
+      include: <span class="method">:items</span>)
+<span class="keyword">end</span></code></pre>
+          </div>
+        </div>
+
+        <p>
+          Status: <span style="color: #4caf50">200 OK</span> | Tempo:
+          <span style="color: #4caf50">178 ms</span> | Tamanho: 1.08 KB
+        </p>
+
+        <div class="highlight-box green">
+          <strong>Vantagem ActiveRecord:</strong> JSON automaticamente aninhado.
+          SQL puro retornaria linhas duplicadas.
+        </div>
+      </div>
+
+      <!-- SLIDE 24: Query 3 INSERT Simples -->
+      <div class="slide">
+        <h1>Query 3: INSERT Simples</h1>
+        <h3>Criar Novo Personagem</h3>
+
+        <p><strong>Endpoint:</strong> <code>POST /personagems</code></p>
+
+        <div class="comparison">
+          <div class="comparison-item sql">
+            <h4>SQL Puro</h4>
+            <pre><code><span class="keyword">INSERT</span> <span class="keyword">INTO</span> personagens 
+  (nome, nivel, id_inventario_id,
+   created_at, updated_at)
+<span class="keyword">VALUES</span> (<span class="string">'Legolas'</span>, <span class="number">8</span>, <span class="number">1</span>,
+         <span class="method">NOW</span>(), <span class="method">NOW</span>());</code></pre>
+          </div>
+          <div class="comparison-item">
+            <h4>ActiveRecord</h4>
+            <pre><code><span class="keyword">def</span> <span class="method">create</span>
+  @p = <span class="method">Personagem</span>.<span class="method">new</span>(p_params)
+  <span class="keyword">if</span> @p.<span class="method">save</span>
+    <span class="keyword">render</span> json: @p, 
+           status: <span class="method">:created</span>
+  <span class="keyword">else</span>
+    <span class="keyword">render</span> json: @p.<span class="method">errors</span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span></code></pre>
+          </div>
+        </div>
+
+        <p>
+          Status: <span style="color: #4caf50">201 Created</span> | Tempo:
+          <span style="color: #4caf50">140 ms</span> | Tamanho: 883 B
+        </p>
+
+        <div class="highlight-box green">
+          <strong>Vantagens:</strong> Validações automáticas, timestamps
+          gerenciados, whitelist de parâmetros.
+        </div>
+      </div>
+
+      <!-- SLIDE 25: Query 4 INSERT 1:N -->
+      <div class="slide">
+        <h1>Query 4: INSERT 1:N</h1>
+        <h3>Criar Item em Inventário</h3>
+
+        <p><strong>Endpoint:</strong> <code>POST /items</code></p>
+
+        <div class="comparison">
+          <div class="comparison-item sql">
+            <h4>SQL Puro</h4>
+            <pre><code><span class="keyword">INSERT</span> <span class="keyword">INTO</span> items
+  (id_inventario_id, nome, tipo,
+   raridade, peso, created_at,
+   updated_at)
+<span class="keyword">VALUES</span> (<span class="number">1</span>, <span class="string">'Poção de Vida'</span>,
+         <span class="string">'Consumível'</span>,
+         <span class="string">'Comum'</span>, <span class="number">0</span>,
+         <span class="method">NOW</span>(), <span class="method">NOW</span>());</code></pre>
+          </div>
+          <div class="comparison-item">
+            <h4>ActiveRecord</h4>
+            <pre><code><span class="comment"># Via controller</span>
+<span class="method">Item</span>.<span class="method">create</span>(
+  id_inventario_id: <span class="number">1</span>,
+  nome: <span class="string">'Poção de Vida'</span>,
+  tipo: <span class="string">'Consumível'</span>,
+  raridade: <span class="string">'Comum'</span>,
+  peso: <span class="number">0</span>
+)
+
+<span class="comment"># Ou via relacionamento</span>
+inv = <span class="method">Inventario</span>.<span class="method">find</span>(<span class="number">1</span>)
+inv.<span class="method">items</span>.<span class="method">create</span>(...)</code></pre>
+          </div>
+        </div>
+
+        <p>
+          Status: <span style="color: #4caf50">201 Created</span> | Tempo:
+          <span style="color: #4caf50">148 ms</span> | Tamanho: 922 B
+        </p>
+      </div>
+
+      <!-- SLIDE 26: Query 5 UPDATE -->
+      <div class="slide">
+        <h1>Query 5: UPDATE Simples</h1>
+        <h3>Modificar Atributo de Personagem</h3>
+
+        <p><strong>Endpoint:</strong> <code>PATCH /personagems/1</code></p>
+
+        <div class="comparison">
+          <div class="comparison-item sql">
+            <h4>SQL Puro</h4>
+            <pre><code><span class="keyword">UPDATE</span> personagens
+<span class="keyword">SET</span> nome = <span class="string">'Novo Nome'</span>, 
+    nivel = <span class="number">20</span>,
+    updated_at = <span class="method">NOW</span>()
+<span class="keyword">WHERE</span> id = <span class="number">1</span>;</code></pre>
+          </div>
+          <div class="comparison-item">
+            <h4>ActiveRecord</h4>
+            <pre><code><span class="keyword">def</span> <span class="method">update</span>
+  @p = <span class="method">Personagem</span>.<span class="method">find</span>(params[<span class="method">:id</span>])
+  <span class="keyword">if</span> @p.<span class="method">update</span>(p_params)
+    <span class="keyword">render</span> json: @p
+  <span class="keyword">else</span>
+    <span class="keyword">render</span> json: @p.<span class="method">errors</span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span></code></pre>
+          </div>
+        </div>
+
+        <p>
+          Status: <span style="color: #4caf50">200 OK</span> | Tempo:
+          <span style="color: #4caf50">42 ms</span> | Tamanho: 845 B
+        </p>
+
+        <div class="highlight-box green">
+          <strong>Performance excelente!</strong> UPDATE é uma das operações
+          mais rápidas.
+        </div>
+      </div>
+
+      <!-- SLIDE 27: Query 6 DELETE -->
+      <div class="slide">
+        <h1>Query 6: DELETE Simples</h1>
+        <h3>Remover um Personagem</h3>
+
+        <p><strong>Endpoint:</strong> <code>DELETE /personagems/1</code></p>
+
+        <div class="comparison">
+          <div class="comparison-item sql">
+            <h4>SQL Puro</h4>
+            <pre><code><span class="keyword">DELETE</span> <span class="keyword">FROM</span> personagens
+<span class="keyword">WHERE</span> id = <span class="number">1</span>;</code></pre>
+          </div>
+          <div class="comparison-item">
+            <h4>ActiveRecord</h4>
+            <pre><code><span class="keyword">def</span> <span class="method">destroy</span>
+  @p = <span class="method">Personagem</span>.<span class="method">find</span>(params[<span class="method">:id</span>])
+  @p.<span class="method">destroy!</span>
+<span class="keyword">end</span></code></pre>
+          </div>
+        </div>
+
+        <p>
+          Status: <span style="color: #4caf50">204 No Content</span> | Tempo:
+          <span style="color: #4caf50">253 ms</span> | Tamanho: 550 B
+        </p>
+
+        <div class="highlight-box">
+          <strong>204 No Content:</strong> Padrão REST correto para DELETE
+          bem-sucedido (sem body).
+        </div>
+      </div>
+
+      <!-- SLIDE 28: Query 7 DELETE N:N -->
+      <div class="slide">
+        <h1>Query 7: DELETE N:N</h1>
+        <h3>Remover Relacionamento Personagem-Missão</h3>
+
+        <p>
+          <strong>Endpoint:</strong> <code>DELETE /personagem_missaos/3</code>
+        </p>
+
+        <div class="comparison">
+          <div class="comparison-item sql">
+            <h4>SQL Puro</h4>
+            <pre><code><span class="keyword">DELETE</span> <span class="keyword">FROM</span> personagem_missaos
+<span class="keyword">WHERE</span> id = <span class="number">3</span>;
+
+<span class="comment">-- Ou por critério:</span>
+<span class="keyword">DELETE</span> <span class="keyword">FROM</span> personagem_missaos
+<span class="keyword">WHERE</span> id_personagem_id = <span class="number">1</span>
+  <span class="keyword">AND</span> id_missao_id = <span class="number">5</span>;</code></pre>
+          </div>
+          <div class="comparison-item">
+            <h4>ActiveRecord</h4>
+            <pre><code><span class="comment"># Via modelo</span>
+<span class="method">PersonagemMissao</span>
+  .<span class="method">find</span>(<span class="number">3</span>).<span class="method">destroy</span>
+
+<span class="comment"># Via relacionamento</span>
+p = <span class="method">Personagem</span>.<span class="method">find</span>(<span class="number">1</span>)
+m = <span class="method">Missao</span>.<span class="method">find</span>(<span class="number">5</span>)
+p.<span class="method">missoes</span>.<span class="method">delete</span>(m)</code></pre>
+          </div>
+        </div>
+
+        <p>
+          Status: <span style="color: #4caf50">204 No Content</span> | Tempo:
+          <span style="color: #4caf50">140 ms</span> | Tamanho: 547 B
+        </p>
+
+        <div class="highlight-box green">
+          <strong>Seguro:</strong> Apenas relacionamento é deletado. Personagem
+          e Missão permanecem intactos.
+        </div>
+      </div>
+
+      <!-- SLIDE 29: Resumo CRUD -->
+      <div class="slide">
+        <h1>Resumo: 7 Operações CRUD</h1>
+
+        <table style="font-size: 0.9em">
+          <tr>
+            <th>Operação</th>
+            <th>SQL</th>
+            <th>ActiveRecord</th>
+            <th>Tempo</th>
+          </tr>
+          <tr>
+            <td>SELECT *</td>
+            <td><code>SELECT FROM personagens</code></td>
+            <td><code>Personagem.all</code></td>
+            <td>233 ms</td>
+          </tr>
+          <tr>
+            <td>SELECT JOIN</td>
+            <td><code>SELECT JOIN WHERE</code></td>
+            <td><code>.includes(:items)</code></td>
+            <td>178 ms</td>
+          </tr>
+          <tr>
+            <td>INSERT simples</td>
+            <td><code>INSERT INTO personagens</code></td>
+            <td><code>Personagem.create</code></td>
+            <td>140 ms</td>
+          </tr>
+          <tr>
+            <td>INSERT 1:N</td>
+            <td><code>INSERT INTO items</code></td>
+            <td><code>Item.create</code></td>
+            <td>148 ms</td>
+          </tr>
+          <tr>
+            <td>UPDATE</td>
+            <td><code>UPDATE SET WHERE</code></td>
+            <td><code>.update()</code></td>
+            <td>42 ms ⭐</td>
+          </tr>
+          <tr>
+            <td>DELETE</td>
+            <td><code>DELETE WHERE</code></td>
+            <td><code>.destroy</code></td>
+            <td>253 ms</td>
+          </tr>
+          <tr>
+            <td>DELETE N:N</td>
+            <td><code>DELETE FROM junção WHERE</code></td>
+            <td><code>PersonagemMissao.find.destroy</code></td>
+            <td>140 ms</td>
+          </tr>
+        </table>
+
+        <div class="highlight-box green">
+          <strong>Conclusão:</strong> Todas operações < 300ms. Performance
+          adequada para aplicação web típica.
+        </div>
+      </div>
+
+      <!-- SLIDE 30: Boas Práticas -->
+      <div class="slide">
+        <h1>Boas Práticas Recomendadas</h1>
+
+        <h3>1. Eager Loading — Evitar N+1</h3>
+        <pre><code><span class="comment"># ❌ Errado</span>
+<span class="method">Personagem</span>.<span class="method">all</span>.<span class="method">each</span> { |p| p.<span class="method">itens</span>.<span class="method">count</span> }
+
+<span class="comment"># ✅ Correto</span>
+<span class="method">Personagem</span>.<span class="method">includes</span>(<span class="method">:itens</span>).<span class="method">all</span></code></pre>
+
+        <h3>2. Validações Robustas</h3>
+        <pre><code><span class="keyword">class</span> <span class="method">Personagem</span> &lt; <span class="method">ApplicationRecord</span>
+  <span class="keyword">validates</span> <span class="method">:nome</span>, presence: <span class="keyword">true</span>
+  <span class="keyword">validates</span> <span class="method">:nivel</span>, numericality: { 
+    only_integer: <span class="keyword">true</span>, greater_than: <span class="number">0</span> 
+  }
+<span class="keyword">end</span></code></pre>
+
+        <h3>3. Scopes para Queries Comuns</h3>
+        <pre><code><span class="keyword">scope</span> <span class="method">:ativo</span>, -&gt; { <span class="keyword">where</span>(ativo: <span class="keyword">true</span>) }
+<span class="keyword">scope</span> <span class="method">:nivel_alto</span>, -&gt; { <span class="keyword">where</span>(<span class="string">"nivel >= ?"</span>, <span class="number">10</span>) }
+
+<span class="comment"># Uso</span>
+<span class="method">Personagem</span>.<span class="method">ativo</span>.<span class="method">nivel_alto</span></code></pre>
+
+        <h3>4. Migrações para Todas Mudanças</h3>
+        <p>
+          Sempre versione mudanças de schema com migrações, nunca SQL solto.
+        </p>
+      </div>
+
+      <!-- SLIDE 31: Conclusão -->
+      <div class="slide">
+        <h1>CONCLUSÃO</h1>
+
+        <h2>Descobertas-Chave</h2>
+
+        <ul>
+          <li>
+            <strong>ActiveRecord com .includes()</strong> oferece performance
+            apenas ~25% mais lenta que SQL puro
+          </li>
+          <li>
+            <strong>Problema N+1 é a armadilha real</strong> — 16x mais lento
+            que includes
+          </li>
+          <li>
+            <strong>Desenvolvimento 10-20x mais rápido</strong> com ORM vs SQL
+            puro
+          </li>
+          <li>
+            <strong>Migrações versionadas</strong> oferecem manutenibilidade
+            massiva de longo prazo
+          </li>
+          <li>
+            <strong>Relacionamentos declarativos</strong> tornam código muito
+            mais claro
+          </li>
+        </ul>
+
+        <h2>Recomendação para Projeto RPG</h2>
+
+        <div class="highlight-box green">
+          <strong>Use ActiveRecord como padrão</strong>, aplicando:
+          <ul style="margin-top: 10px">
+            <li>✅ Eager loading com .includes()</li>
+            <li>✅ Índices apropriados no banco</li>
+            <li>✅ Validações robustas no model</li>
+            <li>✅ Migrações para todas mudanças</li>
+            <li>✅ SQL puro apenas em casos excepcionais</li>
+          </ul>
+        </div>
+
+        <p style="margin-top: 40px; color: #888">
+          Essa abordagem oferece melhor equilíbrio entre
+          <strong>velocidade de desenvolvimento</strong>,
+          <strong>manutenibilidade</strong> e
+          <strong>performance adequada</strong> para evolução futura.
+        </p>
+      </div>
+
+      <!-- SLIDE 32: Obrigado -->
+      <div
+        class="slide cover"
+        style="background: linear-gradient(135deg, #1a1a1a 0%, #0a2d1a 100%)"
+      >
+        <div style="text-align: center">
+          <h1 style="color: #4caf50; font-size: 3em; margin-bottom: 40px">
+            Obrigado!
+          </h1>
+
+          <p style="font-size: 1.3em; color: #e0e0e0; margin-bottom: 60px">
+            Mapeamento de Tecnologias de Acesso a Dados<br />
+            <span style="color: #cc0000">Ruby on Rails</span>
+          </p>
+
+          <div
+            style="
+              margin-top: 80px;
+              padding-top: 40px;
+              border-top: 1px solid #444;
+            "
+          >
+            <p style="color: #888; margin-bottom: 30px">Dúvidas?</p>
+            <p style="font-size: 0.9em; color: #666">
+              Instituto Federal de Sergipe — Campus Lagarto<br />
+              Tópicos Especiais em Banco de Dados<br />
+              2026
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide Counter e Progress Bar -->
+    <div class="slide-counter">
+      <span id="slideNumber">1</span> / <span id="totalSlides">32</span>
+    </div>
+
+    <div class="progress-bar" id="progressBar"></div>
+
+    <script>
+      let currentSlide = 0;
+      const slides = document.querySelectorAll(".slide");
+      const totalSlides = slides.length;
+
+      document.getElementById("totalSlides").textContent = totalSlides;
+
+      function showSlide(n) {
+        slides[currentSlide].classList.remove("active");
+        currentSlide = (n + totalSlides) % totalSlides;
+        slides[currentSlide].classList.add("active");
+        document.getElementById("slideNumber").textContent = currentSlide + 1;
+
+        // Atualizar barra de progresso
+        const progress = ((currentSlide + 1) / totalSlides) * 100;
+        document.getElementById("progressBar").style.width = progress + "%";
+      }
+
+      function nextSlide() {
+        if (currentSlide < totalSlides - 1) {
+          showSlide(currentSlide + 1);
+        }
+      }
+
+      function previousSlide() {
+        if (currentSlide > 0) {
+          showSlide(currentSlide - 1);
+        }
+      }
+
+      // Navegação por teclado
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowRight") nextSlide();
+        if (e.key === "ArrowLeft") previousSlide();
+      });
+
+      // Inicializar
+      showSlide(0);
+    </script>
+  </body>
+</html>
