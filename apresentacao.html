@@ -34,7 +34,7 @@
         background: linear-gradient(135deg, #121212 0%, #1a1a1a 100%);
         position: relative;
         animation: slideIn 0.5s ease-in-out;
-        overflow-y: auto;
+        overflow: hidden;
       }
 
       .slide.active {
@@ -163,7 +163,7 @@
         padding: 20px;
         margin: 20px 0;
         border-radius: 4px;
-        overflow-x: auto;
+        overflow: hidden;
         font-size: 0.9em;
       }
 
@@ -453,12 +453,7 @@
 numero = <span class="number">42</span>
 puts numero.<span class="method">class</span>              <span class="comment"># => Integer</span>
 puts numero.<span class="method">even?</span>              <span class="comment"># => true</span>
-puts numero.<span class="method">times</span> { |i| puts i }  <span class="comment"># imprime 0 a 41</span>
-
-<span class="comment"># Strings são objetos</span>
-mensagem = <span class="string">"Ruby é incrível"</span>
-puts mensagem.<span class="method">upcase</span>    <span class="comment"># => "RUBY É INCRÍVEL"</span>
-puts mensagem.<span class="method">length</span>   <span class="comment"># => 15</span></code></pre>
+puts numero.<span class="method">times</span> { |i| puts i }</code></pre>
 
         <div class="highlight-box">
           <strong>Benefício:</strong> Experiência coerente — mesma lógica OO
@@ -497,7 +492,7 @@ puts mensagem.<span class="method">length</span>   <span class="comment"># => 15
 <span class="keyword">end</span></code></pre>
       </div>
 
-      <!-- SLIDE 5: Tipagem -->
+      <!-- SLIDE 5: Tipagem Dinâmica -->
       <div class="slide">
         <h1>Sistema de Tipagem: Dinâmica e Forte</h1>
 
@@ -511,8 +506,12 @@ puts mensagem.<span class="method">length</span>   <span class="comment"># => 15
 valor = <span class="string">"texto"</span>   <span class="comment"># String</span>
 valor = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]  <span class="comment"># Array</span>
 valor = <span class="keyword">true</span>      <span class="comment"># TrueClass</span></code></pre>
+      </div>
 
-        <h2>Tipagem Forte</h2>
+      <!-- SLIDE 6: Tipagem Forte -->
+      <div class="slide">
+        <h1>Tipagem Forte</h1>
+
         <p>
           <strong>Sem conversão implícita perigosa</strong> entre tipos
           incompatíveis.
@@ -523,9 +522,13 @@ resultado = <span class="number">5</span> + <span class="string">"10"</span>  <s
 
 <span class="comment"># Conversão explícita</span>
 resultado = <span class="number">5</span> + <span class="string">"10"</span>.<span class="method">to_i</span>  <span class="comment"># => 15</span></code></pre>
+
+        <div class="highlight-box">
+          <strong>Benefício:</strong> Segurança de tipos sem sintaxe verbosa.
+        </div>
       </div>
 
-      <!-- SLIDE 6: Duck Typing -->
+      <!-- SLIDE 7: Duck Typing -->
       <div class="slide">
         <h1>Duck Typing</h1>
 
@@ -543,22 +546,14 @@ resultado = <span class="number">5</span> + <span class="string">"10"</span>.<sp
 
 <span class="keyword">class</span> <span class="method">Mago</span>
   <span class="keyword">def</span> <span class="method">atacar</span>; <span class="string">"lança feitiço!"</span>; <span class="keyword">end</span>
-<span class="keyword">end</span>
-
-<span class="keyword">def</span> <span class="method">executar_combate</span>(combatente)
-  puts combatente.<span class="method">atacar</span>
-<span class="keyword">end</span>
-
-executar_combate(Guerreiro.<span class="method">new</span>)  <span class="comment"># Funciona!</span>
-executar_combate(Mago.<span class="method">new</span>)      <span class="comment"># Funciona!</span></code></pre>
+<span class="keyword">end</span></code></pre>
 
         <div class="highlight-box green">
-          <strong>Resultado:</strong> Código mais flexível e reutilizável sem
-          herança explícita.
+          <strong>Resultado:</strong> Código mais flexível e reutilizável.
         </div>
       </div>
 
-      <!-- SLIDE 7: Ruby on Rails -->
+      <!-- SLIDE 8: Ruby on Rails -->
       <div class="slide">
         <h1>O Ecossistema Ruby: Rails</h1>
 
@@ -574,8 +569,12 @@ executar_combate(Mago.<span class="method">new</span>)      <span class="comment
           <li><strong>View:</strong> Interface de usuário</li>
           <li><strong>Controller:</strong> Orquestração entre Model e View</li>
         </ul>
+      </div>
 
-        <h3>Duas Filosofias Centrais</h3>
+      <!-- SLIDE 9: Rails - Filosofias -->
+      <div class="slide">
+        <h1>Duas Filosofias Centrais do Rails</h1>
+
         <div class="highlight-box">
           <strong>Convention over Configuration (CoC):</strong> Rails assume
           convenções sensatas. Classe <code>Personagem</code> mapeia tabela
@@ -588,7 +587,7 @@ executar_combate(Mago.<span class="method">new</span>)      <span class="comment
         </div>
       </div>
 
-      <!-- SLIDE 8: Gems -->
+      <!-- SLIDE 10: Gems - Parte 1 -->
       <div class="slide">
         <h1>Gems: O Ecossistema de Bibliotecas</h1>
 
@@ -611,8 +610,12 @@ executar_combate(Mago.<span class="method">new</span>)      <span class="comment
           <li><strong>Puma:</strong> Servidor web de alta performance</li>
           <li><strong>mysql2:</strong> Driver direto para MySQL</li>
         </ul>
+      </div>
 
-        <h3>Estrutura de Projeto Rails</h3>
+      <!-- SLIDE 11: Estrutura Rails -->
+      <div class="slide">
+        <h1>Estrutura de Projeto Rails</h1>
+
         <pre><code>projeto-rails/
 ├── app/models/       # Camada de dados
 ├── app/controllers/  # Lógica de requisição
@@ -620,9 +623,14 @@ executar_combate(Mago.<span class="method">new</span>)      <span class="comment
 ├── config/           # Configuração
 ├── db/migrate/       # Versionamento do banco
 └── Gemfile           # Dependências</code></pre>
+
+        <p style="margin-top: 20px">
+          Essa estrutura organizada facilita manutenção e escalabilidade do
+          projeto.
+        </p>
       </div>
 
-      <!-- SLIDE 9: SEÇÃO B - Introdução -->
+      <!-- SLIDE 12: SEÇÃO B - Introdução -->
       <div class="slide">
         <h1>SEÇÃO B: Análise das Tecnologias</h1>
         <h2>Camadas de Acesso a Dados</h2>
@@ -631,12 +639,6 @@ executar_combate(Mago.<span class="method">new</span>)      <span class="comment
           Em uma aplicação Rails, o acesso a dados é estratificado em
           <strong>3 níveis de abstração</strong>:
         </p>
-
-        <h3>O Espectro de Abstração</h3>
-        <pre><code style="text-align: center; border: none; background: transparent;"><span class="string">Máxima Abstração ←</span>                    <span class="string">→ Máximo Controle</span>
-
-    ORM           Query Builder        Raw Queries
-(ActiveRecord)      (Arel)           (SQL Direto)</code></pre>
 
         <ul>
           <li>
@@ -654,7 +656,22 @@ executar_combate(Mago.<span class="method">new</span>)      <span class="comment
         </ul>
       </div>
 
-      <!-- SLIDE 10: ActiveRecord -->
+      <!-- SLIDE 13: O Espectro -->
+      <div class="slide">
+        <h1>O Espectro de Abstração</h1>
+
+        <pre><code style="text-align: center; border: none; background: transparent;"><span class="string">Máxima Abstração ←</span>                    <span class="string">→ Máximo Controle</span>
+
+    ORM           Query Builder        Raw Queries
+(ActiveRecord)      (Arel)           (SQL Direto)</code></pre>
+
+        <p style="margin-top: 20px">
+          A escolha entre eles depende do caso de uso e da complexidade da
+          query.
+        </p>
+      </div>
+
+      <!-- SLIDE 14: ActiveRecord - Introdução -->
       <div class="slide">
         <h1>ORM: ActiveRecord</h1>
         <h2>O Padrão Ouro do Rails</h2>
@@ -668,12 +685,16 @@ executar_combate(Mago.<span class="method">new</span>)      <span class="comment
         <pre><code><span class="keyword">class</span> <span class="method">Personagem</span> &lt; <span class="method">ApplicationRecord</span>
 <span class="keyword">end</span>
 
-personagem = <span class="method">Personagem</span>.<span class="method">create</span>(nome: <span class="string">"Arthos"</span>, nivel: <span class="number">1</span>)
+personagem = <span class="method">Personagem</span>.<span class="method">create</span>(nome: <span class="string">"Arthos"</span>)
 personagem = <span class="method">Personagem</span>.<span class="method">find</span>(<span class="number">1</span>)
 personagem.<span class="method">update</span>(nivel: <span class="number">2</span>)
 personagem.<span class="method">destroy</span></code></pre>
+      </div>
 
-        <h3>Convenções Automáticas</h3>
+      <!-- SLIDE 15: Convenções Automáticas -->
+      <div class="slide">
+        <h1>Convenções Automáticas do ActiveRecord</h1>
+
         <table>
           <tr>
             <th>Convenção</th>
@@ -696,9 +717,14 @@ personagem.<span class="method">destroy</span></code></pre>
             <td><code>created_at, updated_at</code></td>
           </tr>
         </table>
+
+        <p style="margin-top: 20px">
+          Rails gerencia essas convenções automaticamente, reduzindo
+          configuração.
+        </p>
       </div>
 
-      <!-- SLIDE 11: Relacionamentos -->
+      <!-- SLIDE 16: Relacionamentos 1:N -->
       <div class="slide">
         <h1>Relacionamentos no ActiveRecord</h1>
 
@@ -711,29 +737,40 @@ personagem.<span class="method">destroy</span></code></pre>
 <span class="keyword">class</span> <span class="method">Item</span> &lt; <span class="method">ApplicationRecord</span>
   <span class="keyword">belongs_to</span> <span class="method">:personagem</span>
 <span class="keyword">end</span></code></pre>
+      </div>
 
-        <h3>N:N (Muitos para Muitos)</h3>
+      <!-- SLIDE 17: Relacionamentos N:N -->
+      <div class="slide">
+        <h1>Relacionamentos N:N</h1>
+
+        <h3>Muitos para Muitos</h3>
         <pre><code><span class="keyword">class</span> <span class="method">Personagem</span> &lt; <span class="method">ApplicationRecord</span>
   <span class="keyword">has_many</span> <span class="method">:personagem_missoes</span>
   <span class="keyword">has_many</span> <span class="method">:missoes</span>, through: <span class="method">:personagem_missoes</span>
 <span class="keyword">end</span>
 
 personagem = <span class="method">Personagem</span>.<span class="method">find</span>(<span class="number">1</span>)
-personagem.<span class="method">missoes</span>              <span class="comment"># Lista todas as missões</span>
-personagem.<span class="method">missoes</span> &lt;&lt; missao  <span class="comment"># Adiciona missão</span></code></pre>
+personagem.<span class="method">missoes</span>              <span class="comment"># Lista todas</span>
+personagem.<span class="method">missoes</span> &lt;&lt; missao  <span class="comment"># Adiciona</span></code></pre>
       </div>
 
-      <!-- SLIDE 12: Queries ActiveRecord -->
+      <!-- SLIDE 18: Queries ActiveRecord -->
       <div class="slide">
         <h1>Queries com ActiveRecord</h1>
 
-        <h3>API Fluente</h3>
+        <h3>API Fluente - Parte 1</h3>
         <pre><code><span class="comment"># SELECT e filtragem</span>
 <span class="method">Personagem</span>.<span class="method">all</span>
 <span class="method">Personagem</span>.<span class="method">where</span>(nivel: <span class="number">10</span>)
-<span class="method">Personagem</span>.<span class="method">where</span>(<span class="string">"nivel > ?"</span>, <span class="number">5</span>)
+<span class="method">Personagem</span>.<span class="method">where</span>(<span class="string">"nivel > ?"</span>, <span class="number">5</span>)</code></pre>
+      </div>
 
-<span class="comment"># Ordenação e limite</span>
+      <!-- SLIDE 19: Queries ActiveRecord - Parte 2 -->
+      <div class="slide">
+        <h1>Queries com ActiveRecord</h1>
+
+        <h3>API Fluente - Parte 2</h3>
+        <pre><code><span class="comment"># Ordenação e limite</span>
 <span class="method">Personagem</span>.<span class="method">order</span>(nome: <span class="method">:asc</span>).<span class="method">limit</span>(<span class="number">10</span>)
 
 <span class="comment"># Joins e eager loading</span>
@@ -742,39 +779,40 @@ personagem.<span class="method">missoes</span> &lt;&lt; missao  <span class="com
 
 <span class="comment"># Agregação</span>
 <span class="method">Personagem</span>.<span class="method">count</span>
-<span class="method">Personagem</span>.<span class="method">average</span>(<span class="method">:nivel</span>)
-<span class="method">Personagem</span>.<span class="method">maximum</span>(<span class="method">:nivel</span>)</code></pre>
+<span class="method">Personagem</span>.<span class="method">average</span>(<span class="method">:nivel</span>)</code></pre>
       </div>
 
-      <!-- SLIDE 13: Vantagens e Desvantagens ActiveRecord -->
+      <!-- SLIDE 20: Vantagens ActiveRecord -->
       <div class="slide">
-        <h1>ActiveRecord: Vantagens e Desvantagens</h1>
+        <h1>ActiveRecord: Vantagens</h1>
 
-        <div class="comparison">
-          <div class="comparison-item">
-            <h4>✅ Vantagens</h4>
-            <ul style="margin: 0">
-              <li>Sem SQL explícito</li>
-              <li>Proteção SQL Injection automática</li>
-              <li>Portabilidade (MySQL, PostgreSQL, SQLite)</li>
-              <li>Associações automáticas</li>
-              <li>Migrações versionadas</li>
-            </ul>
-          </div>
-          <div class="comparison-item green">
-            <h4>❌ Desvantagens</h4>
-            <ul style="margin: 0">
-              <li>SQL subótimo em queries complexas</li>
-              <li>Problema N+1 sem cuidado</li>
-              <li>Overhead de abstração</li>
-              <li>Curva aprendizado recursos avançados</li>
-              <li>Limitado para queries muito especializadas</li>
-            </ul>
-          </div>
+        <div class="highlight-box">
+          <ul style="margin: 0">
+            <li>Sem SQL explícito</li>
+            <li>Proteção SQL Injection automática</li>
+            <li>Portabilidade (MySQL, PostgreSQL, SQLite)</li>
+            <li>Associações automáticas</li>
+            <li>Migrações versionadas</li>
+          </ul>
         </div>
       </div>
 
-      <!-- SLIDE 14: Query Builder -->
+      <!-- SLIDE 21: Desvantagens ActiveRecord -->
+      <div class="slide">
+        <h1>ActiveRecord: Desvantagens</h1>
+
+        <div class="highlight-box green">
+          <ul style="margin: 0">
+            <li>SQL subótimo em queries complexas</li>
+            <li>Problema N+1 sem cuidado</li>
+            <li>Overhead de abstração</li>
+            <li>Curva aprendizado recursos avançados</li>
+            <li>Limitado para queries muito especializadas</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- SLIDE 22: Query Builder Arel -->
       <div class="slide">
         <h1>Query Builder: Arel</h1>
 
@@ -787,21 +825,26 @@ personagem.<span class="method">missoes</span> &lt;&lt; missao  <span class="com
         <pre><code>tabela = <span class="method">Personagem</span>.<span class="method">arel_table</span>
 
 query = tabela
-  .<span class="method">project</span>(tabela[<span class="method">:nome</span>], tabela[<span class="method">:nivel</span>])
+  .<span class="method">project</span>(tabela[<span class="method">:nome</span>])
   .<span class="method">where</span>(tabela[<span class="method">:nivel</span>].<span class="method">gt</span>(<span class="number">5</span>))
-  .<span class="method">order</span>(tabela[<span class="method">:nome</span>].<span class="method">asc</span>)
-  .<span class="method">limit</span>(<span class="number">10</span>)
+  .<span class="method">limit</span>(<span class="number">10</span>)</code></pre>
+      </div>
 
-<span class="method">Personagem</span>.<span class="method">find_by_sql</span>(query.<span class="method">to_sql</span>)</code></pre>
+      <!-- SLIDE 23: Operadores Arel -->
+      <div class="slide">
+        <h1>Operadores Relacionais do Arel</h1>
 
-        <h3>Operadores Relacionais</h3>
         <pre><code>tabela[<span class="method">:nivel</span>].<span class="method">eq</span>(<span class="number">10</span>)          <span class="comment"># = 10</span>
 tabela[<span class="method">:nivel</span>].<span class="method">gt</span>(<span class="number">5</span>)          <span class="comment"># > 5</span>
 tabela[<span class="method">:nome</span>].<span class="method">matches</span>(<span class="string">'%Arthos%'</span>)  <span class="comment"># LIKE</span>
 tabela[<span class="method">:nivel</span>].<span class="method">in</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])    <span class="comment"># IN</span></code></pre>
+
+        <p style="margin-top: 20px">
+          Arel permite construir queries de forma programática e tipada.
+        </p>
       </div>
 
-      <!-- SLIDE 15: Raw Queries -->
+      <!-- SLIDE 24: Raw Queries - Parte 1 -->
       <div class="slide">
         <h1>Raw Queries: Acesso Direto</h1>
 
@@ -812,22 +855,23 @@ tabela[<span class="method">:nivel</span>].<span class="method">in</span>([<span
 
         <h3>Executar Raw Queries</h3>
         <pre><code><span class="comment"># Método 1: Connection direta</span>
-connection = <span class="method">ActiveRecord</span>::<span class="method">Base</span>.<span class="method">connection</span>
-resultado = connection.<span class="method">execute</span>(<span class="string">"SELECT * FROM personagens WHERE nivel > 5"</span>)
+connection = <span class="method">ActiveRecord</span>::<span class="method">Base</span>
+  .<span class="method">connection</span>
+resultado = connection.<span class="method">execute</span>(
+  <span class="string">"SELECT * FROM personagens"</span>
+)</code></pre>
+      </div>
 
-<span class="comment"># Método 2: Via find_by_sql (RECOMENDADO)</span>
-personagens = <span class="method">Personagem</span>.<span class="method">find_by_sql</span>(
-  <span class="string">"SELECT * FROM personagens WHERE nivel > ? ORDER BY nome"</span>, [<span class="number">5</span>]
-)
+      <!-- SLIDE 25: Raw Queries - Parte 2 -->
+      <div class="slide">
+        <h1>Raw Queries: Método Recomendado</h1>
 
-<span class="comment"># Método 3: CTE complexa</span>
-query = <span class="string">&lt;&lt;-SQL
-  WITH personagens_ativos AS (
-    SELECT id, nome FROM personagens WHERE ativo = 1
-  )
-  SELECT * FROM personagens_ativos
-  WHERE created_at > NOW() - INTERVAL 7 DAY
-SQL</span></code></pre>
+        <h3>Via find_by_sql (RECOMENDADO)</h3>
+        <pre><code>personagens = <span class="method">Personagem</span>.<span class="method">find_by_sql</span>(
+  <span class="string">"SELECT * FROM personagens "</span>
+  <span class="string">"WHERE nivel > ? "</span>
+  <span class="string">"ORDER BY nome"</span>, [<span class="number">5</span>]
+)</code></pre>
 
         <div class="highlight-box">
           <strong>⚠️ Cuidado:</strong> SQL Injection! Sempre parametrize com
@@ -835,16 +879,16 @@ SQL</span></code></pre>
         </div>
       </div>
 
-      <!-- SLIDE 16: Comparação Consolidada -->
+      <!-- SLIDE 26: Comparação Consolidada -->
       <div class="slide">
         <h1>Comparação: ORM vs Query Builder vs Raw</h1>
 
-        <table>
+        <table style="font-size: 0.85em">
           <tr>
             <th>Critério</th>
-            <th>ORM (ActiveRecord)</th>
-            <th>Query Builder (Arel)</th>
-            <th>Raw Query (SQL)</th>
+            <th>ORM</th>
+            <th>Builder</th>
+            <th>Raw</th>
           </tr>
           <tr>
             <td>Curva de aprendizado</td>
@@ -866,26 +910,14 @@ SQL</span></code></pre>
           </tr>
           <tr>
             <td>Controle</td>
-            <td>Baixo/Médio</td>
-            <td>Médio/Alto</td>
+            <td>Baixo</td>
+            <td>Alto</td>
             <td>Total</td>
-          </tr>
-          <tr>
-            <td>Portabilidade</td>
-            <td>Alta</td>
-            <td>Alta</td>
-            <td>Baixa</td>
-          </tr>
-          <tr>
-            <td>Manutenibilidade</td>
-            <td>Alta</td>
-            <td>Média</td>
-            <td>Média</td>
           </tr>
         </table>
       </div>
 
-      <!-- SLIDE 17: SEÇÃO C - Introdução -->
+      <!-- SLIDE 27: SEÇÃO C - Introdução -->
       <div class="slide">
         <h1>SEÇÃO C: Comparação Crítica</h1>
         <h2>Trade-offs Reais em Produção</h2>
@@ -897,7 +929,15 @@ SQL</span></code></pre>
           >
         </p>
 
-        <h3>Espectro de Abstração vs Controle</h3>
+        <p style="margin-top: 20px">
+          A resposta é nuançada: depende de como você o usa.
+        </p>
+      </div>
+
+      <!-- SLIDE 28: Espectro Abstração vs Controle -->
+      <div class="slide">
+        <h1>Espectro de Abstração vs Controle</h1>
+
         <div
           style="
             background: #1e1e1e;
@@ -923,41 +963,49 @@ SQL</span></code></pre>
         <ul>
           <li>
             <strong>Esquerda:</strong> Melhor legibilidade, menos código,
-            proteção automática — menor performance
+            proteção automática
           </li>
           <li>
-            <strong>Direita:</strong> Máximo controle e performance — código
-            verboso, mais risco de erros
+            <strong>Direita:</strong> Máximo controle, performance, mais risco
           </li>
         </ul>
       </div>
 
-      <!-- SLIDE 18: Problema N+1 -->
+      <!-- SLIDE 29: Problema N+1 - O Problema -->
       <div class="slide">
         <h1>A Armadilha N+1 Queries</h1>
 
         <h3>O Problema</h3>
-        <pre><code><span class="comment"># ❌ PROBLEMA: 1 query + N queries (101 total!)</span>
+        <pre><code><span class="comment"># ❌ PROBLEMA: 1 query + N queries</span>
 personagens = <span class="method">Personagem</span>.<span class="method">limit</span>(<span class="number">10</span>)
 personagens.<span class="method">each</span> <span class="keyword">do</span> |p|
-  puts p.<span class="method">itens</span>.<span class="method">count</span>  <span class="comment"># Query por personagem!</span>
+  puts p.<span class="method">itens</span>.<span class="method">count</span>
 <span class="keyword">end</span></code></pre>
+
+        <p style="margin-top: 20px">
+          Isso executa 101 queries! 1 SELECT + 100 queries adicionais.
+        </p>
+      </div>
+
+      <!-- SLIDE 30: Problema N+1 - A Solução -->
+      <div class="slide">
+        <h1>A Armadilha N+1 Queries - Solução</h1>
 
         <h3>A Solução: Eager Loading</h3>
         <pre><code><span class="comment"># ✅ SOLUÇÃO: Apenas 2 queries!</span>
-personagens = <span class="method">Personagem</span>.<span class="method">includes</span>(<span class="method">:itens</span>).<span class="method">limit</span>(<span class="number">10</span>)
+personagens = <span class="method">Personagem</span>
+  .<span class="method">includes</span>(<span class="method">:itens</span>)
+  .<span class="method">limit</span>(<span class="number">10</span>)
 personagens.<span class="method">each</span> <span class="keyword">do</span> |p|
-  puts p.<span class="method">itens</span>.<span class="method">count</span>  <span class="comment"># Sem query adicional!</span>
+  puts p.<span class="method">itens</span>.<span class="method">count</span>
 <span class="keyword">end</span></code></pre>
 
         <div class="highlight-box green">
-          <strong>Conclusão:</strong> O problema N+1 é a verdadeira armadilha,
-          não o overhead do ORM. Uma única linha (<code>.includes()</code>)
-          reduz 101 queries para 2!
+          <strong>Conclusão:</strong> N+1 é a armadilha real, não o ORM!
         </div>
       </div>
 
-      <!-- SLIDE 19: Migrações -->
+      <!-- SLIDE 31: Migrações Versionadas -->
       <div class="slide">
         <h1>Migrações Versionadas</h1>
 
@@ -968,25 +1016,32 @@ personagens.<span class="method">each</span> <span class="keyword">do</span> |p|
         </p>
 
         <h3>Exemplo de Migração</h3>
-        <pre><code><span class="keyword">class</span> <span class="method">CreatePersonagens</span> &lt; <span class="method">ActiveRecord</span>::<span class="method">Migration</span>[<span class="number">8.1</span>]
+        <pre><code><span class="keyword">class</span> <span class="method">CreatePersonagens</span>
   <span class="keyword">def</span> <span class="method">change</span>
     <span class="keyword">create_table</span> <span class="method">:personagens</span> <span class="keyword">do</span> |t|
-      t.<span class="method">string</span>  <span class="method">:nome</span>,  null: <span class="keyword">false</span>
-      t.<span class="method">integer</span> <span class="method">:nivel</span>, default: <span class="number">1</span>
+      t.<span class="method">string</span> <span class="method">:nome</span>
+      t.<span class="method">integer</span> <span class="method">:nivel</span>
       t.<span class="method">timestamps</span>
     <span class="keyword">end</span>
-
-    <span class="keyword">add_index</span> <span class="method">:personagens</span>, <span class="method">:nome</span>, unique: <span class="keyword">true</span>
   <span class="keyword">end</span>
 <span class="keyword">end</span></code></pre>
+      </div>
 
-        <h3>Comandos</h3>
+      <!-- SLIDE 32: Comandos Migrações -->
+      <div class="slide">
+        <h1>Comandos de Migração</h1>
+
         <pre><code>rails db:migrate           <span class="comment"># Executar migrações</span>
 rails db:rollback          <span class="comment"># Desfazer última</span>
 rails db:migrate:status    <span class="comment"># Verificar status</span></code></pre>
+
+        <p style="margin-top: 20px">
+          Migrações oferecem controle de versão para seu banco de dados,
+          permitindo reverter mudanças com segurança.
+        </p>
       </div>
 
-      <!-- SLIDE 20: Benchmark de Performance -->
+      <!-- SLIDE 33: Benchmark de Performance -->
       <div class="slide">
         <h1>Benchmark: Análise de Performance</h1>
 
@@ -1019,15 +1074,25 @@ rails db:migrate:status    <span class="comment"># Verificar status</span></code
             <div class="chart-value" style="width: 2.4%">1 query, 60ms</div>
           </div>
         </div>
+      </div>
+
+      <!-- SLIDE 34: Descoberta Benchmark -->
+      <div class="slide">
+        <h1>Descoberta do Benchmark</h1>
 
         <div class="highlight-box green">
           <strong>Descoberta-chave:</strong> Diferença entre
           ActiveRecord+includes e SQL puro é apenas <strong>~25%</strong>. Muito
           menor que a diferença entre N+1 e includes (16x!).
         </div>
+
+        <p style="margin-top: 20px">
+          Isso significa que a maioria das aplicações Ruby on Rails tem
+          performance mais do que adequada com ActiveRecord.
+        </p>
       </div>
 
-      <!-- SLIDE 21: SEÇÃO D - Introdução -->
+      <!-- SLIDE 35: SEÇÃO D - Introdução -->
       <div class="slide">
         <h1>SEÇÃO D: Equivalência de Implementação</h1>
         <h2>7 Operações CRUD do Sistema RPG</h2>
@@ -1036,8 +1101,12 @@ rails db:migrate:status    <span class="comment"># Verificar status</span></code
           Demonstração prática comparando
           <strong>SQL Puro vs ActiveRecord</strong> usando o projeto real.
         </p>
+      </div>
 
-        <h3>Modelo de Dados do RPG</h3>
+      <!-- SLIDE 36: Modelo de Dados RPG -->
+      <div class="slide">
+        <h1>Modelo de Dados do RPG</h1>
+
         <ul>
           <li>
             <strong>Personagem:</strong> id, nome, nivel, id_inventario_id,
@@ -1058,7 +1127,7 @@ rails db:migrate:status    <span class="comment"># Verificar status</span></code
         </ul>
       </div>
 
-      <!-- SLIDE 22: Query 1 SELECT -->
+      <!-- SLIDE 37: Query 1 SELECT -->
       <div class="slide">
         <h1>Query 1: SELECT Simples</h1>
         <h3>Buscar Todos os Personagens</h3>
@@ -1068,27 +1137,21 @@ rails db:migrate:status    <span class="comment"># Verificar status</span></code
         <div class="comparison">
           <div class="comparison-item sql">
             <h4>SQL Puro</h4>
-            <pre><code><span class="keyword">SELECT</span> id, nome, nivel, 
-       id_inventario_id, created_at, updated_at
-<span class="keyword">FROM</span> personagens;</code></pre>
+            <pre><code><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> personagens</code></pre>
           </div>
           <div class="comparison-item">
             <h4>ActiveRecord</h4>
-            <pre><code><span class="keyword">def</span> <span class="method">index</span>
-  @personagems = <span class="method">Personagem</span>.<span class="method">all</span>
-  <span class="keyword">render</span> json: @personagems
-<span class="keyword">end</span></code></pre>
+            <pre><code><span class="method">Personagem</span>.<span class="method">all</span></code></pre>
           </div>
         </div>
 
-        <h3>Resultado da API</h3>
-        <p>
+        <p style="margin-top: 10px">
           Status: <span style="color: #4caf50">200 OK</span> | Tempo:
-          <span style="color: #4caf50">233 ms</span> | Tamanho: 890 B
+          <span style="color: #4caf50">233 ms</span>
         </p>
       </div>
 
-      <!-- SLIDE 23: Query 2 SELECT JOIN -->
+      <!-- SLIDE 38: Query 2 SELECT JOIN -->
       <div class="slide">
         <h1>Query 2: SELECT com JOIN</h1>
         <h3>Buscar Inventário com Itens (1:N)</h3>
@@ -1098,38 +1161,25 @@ rails db:migrate:status    <span class="comment"># Verificar status</span></code
         <div class="comparison">
           <div class="comparison-item sql">
             <h4>SQL Puro</h4>
-            <pre><code><span class="keyword">SELECT</span> i.id, i.capacidade_maxima,
-       it.id <span class="keyword">AS</span> item_id, it.nome
-<span class="keyword">FROM</span> inventarios i
-<span class="keyword">LEFT</span> <span class="keyword">JOIN</span> items it 
-  <span class="keyword">ON</span> i.id = it.id_inventario_id
-<span class="keyword">WHERE</span> i.id = <span class="number">1</span>;</code></pre>
+            <pre><code><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> inventarios i
+<span class="keyword">LEFT JOIN</span> items it
+<span class="keyword">WHERE</span> i.id = <span class="number">1</span></code></pre>
           </div>
           <div class="comparison-item">
             <h4>ActiveRecord</h4>
-            <pre><code><span class="keyword">def</span> <span class="method">show</span>
-  @inventario = <span class="method">Inventario</span>
-    .<span class="method">includes</span>(<span class="method">:items</span>)
-    .<span class="method">find</span>(params[<span class="method">:id</span>])
-  <span class="keyword">render</span> json: 
-    @inventario.<span class="method">as_json</span>(
-      include: <span class="method">:items</span>)
-<span class="keyword">end</span></code></pre>
+            <pre><code><span class="method">Inventario</span>
+  .<span class="method">includes</span>(<span class="method">:items</span>)
+  .<span class="method">find</span>(<span class="number">1</span>)</code></pre>
           </div>
         </div>
 
-        <p>
+        <p style="margin-top: 10px">
           Status: <span style="color: #4caf50">200 OK</span> | Tempo:
-          <span style="color: #4caf50">178 ms</span> | Tamanho: 1.08 KB
+          <span style="color: #4caf50">178 ms</span>
         </p>
-
-        <div class="highlight-box green">
-          <strong>Vantagem ActiveRecord:</strong> JSON automaticamente aninhado.
-          SQL puro retornaria linhas duplicadas.
-        </div>
       </div>
 
-      <!-- SLIDE 24: Query 3 INSERT Simples -->
+      <!-- SLIDE 39: Query 3 INSERT -->
       <div class="slide">
         <h1>Query 3: INSERT Simples</h1>
         <h3>Criar Novo Personagem</h3>
@@ -1139,38 +1189,26 @@ rails db:migrate:status    <span class="comment"># Verificar status</span></code
         <div class="comparison">
           <div class="comparison-item sql">
             <h4>SQL Puro</h4>
-            <pre><code><span class="keyword">INSERT</span> <span class="keyword">INTO</span> personagens 
-  (nome, nivel, id_inventario_id,
-   created_at, updated_at)
-<span class="keyword">VALUES</span> (<span class="string">'Legolas'</span>, <span class="number">8</span>, <span class="number">1</span>,
-         <span class="method">NOW</span>(), <span class="method">NOW</span>());</code></pre>
+            <pre><code><span class="keyword">INSERT INTO</span> personagens
+  (nome, nivel)
+<span class="keyword">VALUES</span> (...)</code></pre>
           </div>
           <div class="comparison-item">
             <h4>ActiveRecord</h4>
-            <pre><code><span class="keyword">def</span> <span class="method">create</span>
-  @p = <span class="method">Personagem</span>.<span class="method">new</span>(p_params)
-  <span class="keyword">if</span> @p.<span class="method">save</span>
-    <span class="keyword">render</span> json: @p, 
-           status: <span class="method">:created</span>
-  <span class="keyword">else</span>
-    <span class="keyword">render</span> json: @p.<span class="method">errors</span>
-  <span class="keyword">end</span>
-<span class="keyword">end</span></code></pre>
+            <pre><code><span class="method">Personagem</span>.<span class="method">create</span>(
+  nome: <span class="string">'Legolas'</span>,
+  nivel: <span class="number">8</span>
+)</code></pre>
           </div>
         </div>
 
-        <p>
+        <p style="margin-top: 10px">
           Status: <span style="color: #4caf50">201 Created</span> | Tempo:
-          <span style="color: #4caf50">140 ms</span> | Tamanho: 883 B
+          <span style="color: #4caf50">140 ms</span>
         </p>
-
-        <div class="highlight-box green">
-          <strong>Vantagens:</strong> Validações automáticas, timestamps
-          gerenciados, whitelist de parâmetros.
-        </div>
       </div>
 
-      <!-- SLIDE 25: Query 4 INSERT 1:N -->
+      <!-- SLIDE 40: Query 4 INSERT 1:N -->
       <div class="slide">
         <h1>Query 4: INSERT 1:N</h1>
         <h3>Criar Item em Inventário</h3>
@@ -1180,39 +1218,26 @@ rails db:migrate:status    <span class="comment"># Verificar status</span></code
         <div class="comparison">
           <div class="comparison-item sql">
             <h4>SQL Puro</h4>
-            <pre><code><span class="keyword">INSERT</span> <span class="keyword">INTO</span> items
-  (id_inventario_id, nome, tipo,
-   raridade, peso, created_at,
-   updated_at)
-<span class="keyword">VALUES</span> (<span class="number">1</span>, <span class="string">'Poção de Vida'</span>,
-         <span class="string">'Consumível'</span>,
-         <span class="string">'Comum'</span>, <span class="number">0</span>,
-         <span class="method">NOW</span>(), <span class="method">NOW</span>());</code></pre>
+            <pre><code><span class="keyword">INSERT INTO</span> items
+  (id_inventario_id, nome)
+<span class="keyword">VALUES</span> (...)</code></pre>
           </div>
           <div class="comparison-item">
             <h4>ActiveRecord</h4>
-            <pre><code><span class="comment"># Via controller</span>
-<span class="method">Item</span>.<span class="method">create</span>(
-  id_inventario_id: <span class="number">1</span>,
-  nome: <span class="string">'Poção de Vida'</span>,
-  tipo: <span class="string">'Consumível'</span>,
-  raridade: <span class="string">'Comum'</span>,
-  peso: <span class="number">0</span>
-)
-
-<span class="comment"># Ou via relacionamento</span>
-inv = <span class="method">Inventario</span>.<span class="method">find</span>(<span class="number">1</span>)
-inv.<span class="method">items</span>.<span class="method">create</span>(...)</code></pre>
+            <pre><code>inv = <span class="method">Inventario</span>.<span class="method">find</span>(<span class="number">1</span>)
+inv.<span class="method">items</span>.<span class="method">create</span>(
+  nome: <span class="string">'Poção'</span>
+)</code></pre>
           </div>
         </div>
 
-        <p>
+        <p style="margin-top: 10px">
           Status: <span style="color: #4caf50">201 Created</span> | Tempo:
-          <span style="color: #4caf50">148 ms</span> | Tamanho: 922 B
+          <span style="color: #4caf50">148 ms</span>
         </p>
       </div>
 
-      <!-- SLIDE 26: Query 5 UPDATE -->
+      <!-- SLIDE 41: Query 5 UPDATE -->
       <div class="slide">
         <h1>Query 5: UPDATE Simples</h1>
         <h3>Modificar Atributo de Personagem</h3>
@@ -1223,36 +1248,25 @@ inv.<span class="method">items</span>.<span class="method">create</span>(...)</c
           <div class="comparison-item sql">
             <h4>SQL Puro</h4>
             <pre><code><span class="keyword">UPDATE</span> personagens
-<span class="keyword">SET</span> nome = <span class="string">'Novo Nome'</span>, 
-    nivel = <span class="number">20</span>,
-    updated_at = <span class="method">NOW</span>()
-<span class="keyword">WHERE</span> id = <span class="number">1</span>;</code></pre>
+<span class="keyword">SET</span> nome = <span class="string">'Novo'</span>
+<span class="keyword">WHERE</span> id = <span class="number">1</span></code></pre>
           </div>
           <div class="comparison-item">
             <h4>ActiveRecord</h4>
-            <pre><code><span class="keyword">def</span> <span class="method">update</span>
-  @p = <span class="method">Personagem</span>.<span class="method">find</span>(params[<span class="method">:id</span>])
-  <span class="keyword">if</span> @p.<span class="method">update</span>(p_params)
-    <span class="keyword">render</span> json: @p
-  <span class="keyword">else</span>
-    <span class="keyword">render</span> json: @p.<span class="method">errors</span>
-  <span class="keyword">end</span>
-<span class="keyword">end</span></code></pre>
+            <pre><code>p = <span class="method">Personagem</span>.<span class="method">find</span>(<span class="number">1</span>)
+p.<span class="method">update</span>(
+  nome: <span class="string">'Novo'</span>
+)</code></pre>
           </div>
         </div>
 
-        <p>
+        <p style="margin-top: 10px">
           Status: <span style="color: #4caf50">200 OK</span> | Tempo:
-          <span style="color: #4caf50">42 ms</span> | Tamanho: 845 B
+          <span style="color: #4caf50">42 ms</span> ⭐
         </p>
-
-        <div class="highlight-box green">
-          <strong>Performance excelente!</strong> UPDATE é uma das operações
-          mais rápidas.
-        </div>
       </div>
 
-      <!-- SLIDE 27: Query 6 DELETE -->
+      <!-- SLIDE 42: Query 6 DELETE -->
       <div class="slide">
         <h1>Query 6: DELETE Simples</h1>
         <h3>Remover um Personagem</h3>
@@ -1262,30 +1276,23 @@ inv.<span class="method">items</span>.<span class="method">create</span>(...)</c
         <div class="comparison">
           <div class="comparison-item sql">
             <h4>SQL Puro</h4>
-            <pre><code><span class="keyword">DELETE</span> <span class="keyword">FROM</span> personagens
-<span class="keyword">WHERE</span> id = <span class="number">1</span>;</code></pre>
+            <pre><code><span class="keyword">DELETE FROM</span> personagens
+<span class="keyword">WHERE</span> id = <span class="number">1</span></code></pre>
           </div>
           <div class="comparison-item">
             <h4>ActiveRecord</h4>
-            <pre><code><span class="keyword">def</span> <span class="method">destroy</span>
-  @p = <span class="method">Personagem</span>.<span class="method">find</span>(params[<span class="method">:id</span>])
-  @p.<span class="method">destroy!</span>
-<span class="keyword">end</span></code></pre>
+            <pre><code>p = <span class="method">Personagem</span>.<span class="method">find</span>(<span class="number">1</span>)
+p.<span class="method">destroy</span></code></pre>
           </div>
         </div>
 
-        <p>
+        <p style="margin-top: 10px">
           Status: <span style="color: #4caf50">204 No Content</span> | Tempo:
-          <span style="color: #4caf50">253 ms</span> | Tamanho: 550 B
+          <span style="color: #4caf50">253 ms</span>
         </p>
-
-        <div class="highlight-box">
-          <strong>204 No Content:</strong> Padrão REST correto para DELETE
-          bem-sucedido (sem body).
-        </div>
       </div>
 
-      <!-- SLIDE 28: Query 7 DELETE N:N -->
+      <!-- SLIDE 43: Query 7 DELETE N:N -->
       <div class="slide">
         <h1>Query 7: DELETE N:N</h1>
         <h3>Remover Relacionamento Personagem-Missão</h3>
@@ -1297,132 +1304,123 @@ inv.<span class="method">items</span>.<span class="method">create</span>(...)</c
         <div class="comparison">
           <div class="comparison-item sql">
             <h4>SQL Puro</h4>
-            <pre><code><span class="keyword">DELETE</span> <span class="keyword">FROM</span> personagem_missaos
-<span class="keyword">WHERE</span> id = <span class="number">3</span>;
-
-<span class="comment">-- Ou por critério:</span>
-<span class="keyword">DELETE</span> <span class="keyword">FROM</span> personagem_missaos
-<span class="keyword">WHERE</span> id_personagem_id = <span class="number">1</span>
-  <span class="keyword">AND</span> id_missao_id = <span class="number">5</span>;</code></pre>
+            <pre><code><span class="keyword">DELETE FROM</span> personagem_missaos
+<span class="keyword">WHERE</span> id = <span class="number">3</span></code></pre>
           </div>
           <div class="comparison-item">
             <h4>ActiveRecord</h4>
-            <pre><code><span class="comment"># Via modelo</span>
-<span class="method">PersonagemMissao</span>
-  .<span class="method">find</span>(<span class="number">3</span>).<span class="method">destroy</span>
-
-<span class="comment"># Via relacionamento</span>
-p = <span class="method">Personagem</span>.<span class="method">find</span>(<span class="number">1</span>)
-m = <span class="method">Missao</span>.<span class="method">find</span>(<span class="number">5</span>)
-p.<span class="method">missoes</span>.<span class="method">delete</span>(m)</code></pre>
+            <pre><code>pm = <span class="method">PersonagemMissao</span>
+  .<span class="method">find</span>(<span class="number">3</span>)
+pm.<span class="method">destroy</span></code></pre>
           </div>
         </div>
 
-        <p>
+        <p style="margin-top: 10px">
           Status: <span style="color: #4caf50">204 No Content</span> | Tempo:
-          <span style="color: #4caf50">140 ms</span> | Tamanho: 547 B
+          <span style="color: #4caf50">140 ms</span>
         </p>
-
-        <div class="highlight-box green">
-          <strong>Seguro:</strong> Apenas relacionamento é deletado. Personagem
-          e Missão permanecem intactos.
-        </div>
       </div>
 
-      <!-- SLIDE 29: Resumo CRUD -->
+      <!-- SLIDE 44: Resumo CRUD -->
       <div class="slide">
         <h1>Resumo: 7 Operações CRUD</h1>
 
-        <table style="font-size: 0.9em">
+        <table style="font-size: 0.85em">
           <tr>
             <th>Operação</th>
-            <th>SQL</th>
-            <th>ActiveRecord</th>
             <th>Tempo</th>
           </tr>
           <tr>
             <td>SELECT *</td>
-            <td><code>SELECT FROM personagens</code></td>
-            <td><code>Personagem.all</code></td>
             <td>233 ms</td>
           </tr>
           <tr>
             <td>SELECT JOIN</td>
-            <td><code>SELECT JOIN WHERE</code></td>
-            <td><code>.includes(:items)</code></td>
             <td>178 ms</td>
           </tr>
           <tr>
             <td>INSERT simples</td>
-            <td><code>INSERT INTO personagens</code></td>
-            <td><code>Personagem.create</code></td>
             <td>140 ms</td>
           </tr>
           <tr>
             <td>INSERT 1:N</td>
-            <td><code>INSERT INTO items</code></td>
-            <td><code>Item.create</code></td>
             <td>148 ms</td>
           </tr>
           <tr>
             <td>UPDATE</td>
-            <td><code>UPDATE SET WHERE</code></td>
-            <td><code>.update()</code></td>
             <td>42 ms ⭐</td>
           </tr>
           <tr>
             <td>DELETE</td>
-            <td><code>DELETE WHERE</code></td>
-            <td><code>.destroy</code></td>
             <td>253 ms</td>
           </tr>
           <tr>
             <td>DELETE N:N</td>
-            <td><code>DELETE FROM junção WHERE</code></td>
-            <td><code>PersonagemMissao.find.destroy</code></td>
             <td>140 ms</td>
           </tr>
         </table>
 
-        <div class="highlight-box green">
-          <strong>Conclusão:</strong> Todas operações < 300ms. Performance
-          adequada para aplicação web típica.
+        <div class="highlight-box green" style="margin-top: 10px">
+          <strong>Conclusão:</strong> Todas operações < 300ms ✅
         </div>
       </div>
 
-      <!-- SLIDE 30: Boas Práticas -->
+      <!-- SLIDE 45: Boas Práticas - Eager Loading -->
       <div class="slide">
-        <h1>Boas Práticas Recomendadas</h1>
+        <h1>Boas Práticas: Eager Loading</h1>
 
-        <h3>1. Eager Loading — Evitar N+1</h3>
+        <h3>Evitar N+1</h3>
         <pre><code><span class="comment"># ❌ Errado</span>
-<span class="method">Personagem</span>.<span class="method">all</span>.<span class="method">each</span> { |p| p.<span class="method">itens</span>.<span class="method">count</span> }
+<span class="method">Personagem</span>.<span class="method">all</span>.<span class="method">each</span> 
+  { |p| p.<span class="method">itens</span>.<span class="method">count</span> }
 
 <span class="comment"># ✅ Correto</span>
-<span class="method">Personagem</span>.<span class="method">includes</span>(<span class="method">:itens</span>).<span class="method">all</span></code></pre>
+<span class="method">Personagem</span>.<span class="method">includes</span>(<span class="method">:itens</span>)</code></pre>
+      </div>
 
-        <h3>2. Validações Robustas</h3>
+      <!-- SLIDE 46: Boas Práticas - Validações -->
+      <div class="slide">
+        <h1>Boas Práticas: Validações Robustas</h1>
+
         <pre><code><span class="keyword">class</span> <span class="method">Personagem</span> &lt; <span class="method">ApplicationRecord</span>
   <span class="keyword">validates</span> <span class="method">:nome</span>, presence: <span class="keyword">true</span>
   <span class="keyword">validates</span> <span class="method">:nivel</span>, numericality: { 
-    only_integer: <span class="keyword">true</span>, greater_than: <span class="number">0</span> 
+    only_integer: <span class="keyword">true</span>, 
+    greater_than: <span class="number">0</span> 
   }
 <span class="keyword">end</span></code></pre>
+      </div>
 
-        <h3>3. Scopes para Queries Comuns</h3>
+      <!-- SLIDE 47: Boas Práticas - Scopes -->
+      <div class="slide">
+        <h1>Boas Práticas: Scopes para Queries Comuns</h1>
+
         <pre><code><span class="keyword">scope</span> <span class="method">:ativo</span>, -&gt; { <span class="keyword">where</span>(ativo: <span class="keyword">true</span>) }
-<span class="keyword">scope</span> <span class="method">:nivel_alto</span>, -&gt; { <span class="keyword">where</span>(<span class="string">"nivel >= ?"</span>, <span class="number">10</span>) }
+<span class="keyword">scope</span> <span class="method">:nivel_alto</span>, -&gt; { 
+  <span class="keyword">where</span>(<span class="string">"nivel >= ?"</span>, <span class="number">10</span>) 
+}
 
 <span class="comment"># Uso</span>
 <span class="method">Personagem</span>.<span class="method">ativo</span>.<span class="method">nivel_alto</span></code></pre>
+      </div>
 
-        <h3>4. Migrações para Todas Mudanças</h3>
+      <!-- SLIDE 48: Boas Práticas - Migrações -->
+      <div class="slide">
+        <h1>Boas Práticas: Migrações</h1>
+
         <p>
           Sempre versione mudanças de schema com migrações, nunca SQL solto.
         </p>
+
+        <ul>
+          <li>Cada mudança em arquivo separado</li>
+          <li>Timestamps garantem ordem</li>
+          <li>Possibilidade de rollback</li>
+          <li>Histórico completo de mudanças</li>
+        </ul>
       </div>
 
-      <!-- SLIDE 31: Conclusão -->
+      <!-- SLIDE 49: CONCLUSÃO -->
       <div class="slide">
         <h1>CONCLUSÃO</h1>
 
@@ -1430,28 +1428,20 @@ p.<span class="method">missoes</span>.<span class="method">delete</span>(m)</cod
 
         <ul>
           <li>
-            <strong>ActiveRecord com .includes()</strong> oferece performance
-            apenas ~25% mais lenta que SQL puro
+            <strong>ActiveRecord com .includes()</strong> é ~25% mais lento que
+            SQL puro
           </li>
           <li>
-            <strong>Problema N+1 é a armadilha real</strong> — 16x mais lento
-            que includes
+            <strong>Problema N+1 é a armadilha real</strong> (16x mais lento!)
           </li>
-          <li>
-            <strong>Desenvolvimento 10-20x mais rápido</strong> com ORM vs SQL
-            puro
-          </li>
-          <li>
-            <strong>Migrações versionadas</strong> oferecem manutenibilidade
-            massiva de longo prazo
-          </li>
-          <li>
-            <strong>Relacionamentos declarativos</strong> tornam código muito
-            mais claro
-          </li>
+          <li><strong>Desenvolvimento</strong> é 10-20x mais rápido com ORM</li>
+          <li><strong>Migrações</strong> oferecem manutenibilidade</li>
         </ul>
+      </div>
 
-        <h2>Recomendação para Projeto RPG</h2>
+      <!-- SLIDE 50: Recomendação -->
+      <div class="slide">
+        <h1>Recomendação para Projeto RPG</h1>
 
         <div class="highlight-box green">
           <strong>Use ActiveRecord como padrão</strong>, aplicando:
@@ -1463,8 +1453,13 @@ p.<span class="method">missoes</span>.<span class="method">delete</span>(m)</cod
             <li>✅ SQL puro apenas em casos excepcionais</li>
           </ul>
         </div>
+      </div>
 
-        <p style="margin-top: 40px; color: #888">
+      <!-- SLIDE 51: Fechamento -->
+      <div class="slide">
+        <h1>Fechamento</h1>
+
+        <p style="margin-top: 40px; color: #888; font-size: 1.1em">
           Essa abordagem oferece melhor equilíbrio entre
           <strong>velocidade de desenvolvimento</strong>,
           <strong>manutenibilidade</strong> e
@@ -1472,7 +1467,7 @@ p.<span class="method">missoes</span>.<span class="method">delete</span>(m)</cod
         </p>
       </div>
 
-      <!-- SLIDE 32: Obrigado -->
+      <!-- SLIDE 52: Obrigado -->
       <div
         class="slide cover"
         style="background: linear-gradient(135deg, #1a1a1a 0%, #0a2d1a 100%)"
@@ -1507,7 +1502,7 @@ p.<span class="method">missoes</span>.<span class="method">delete</span>(m)</cod
 
     <!-- Slide Counter e Progress Bar -->
     <div class="slide-counter">
-      <span id="slideNumber">1</span> / <span id="totalSlides">32</span>
+      <span id="slideNumber">1</span> / <span id="totalSlides">52</span>
     </div>
 
     <div class="progress-bar" id="progressBar"></div>
