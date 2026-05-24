@@ -55,7 +55,6 @@
         font-weight: 700;
         letter-spacing: 0.7px;
       }
-
       .contador-caixa {
         margin: 35px auto 8px auto;
         background: #111;
@@ -123,13 +122,6 @@
         transition: width 0.8s cubic-bezier(0.51, 0.72, 0.47, 1.03);
         will-change: width;
       }
-      .contador-label-meta {
-        margin-top: 10px;
-        color: #bbb;
-        font-size: 0.93em;
-        text-align: left;
-        letter-spacing: 0.5px;
-      }
       .assinou .apoiar-btn {
         background: #1d1d1d !important;
         color: #aaa !important;
@@ -153,7 +145,6 @@
         transition: 0.13s;
         outline: none;
         letter-spacing: 0.7px;
-        text-shadow: 0 0 4px #8001;
       }
       .apoiar-btn:active {
         background: #700;
@@ -163,11 +154,6 @@
         margin: 8px 0 0 0;
         font-size: 1.07em;
       }
-      .contador-permissao {
-        color: #ffbe3b;
-        margin: 10px 0 0 0;
-        font-size: 0.95em;
-      }
       .barra-progresso-txt {
         width: 100%;
         text-align: right;
@@ -176,7 +162,6 @@
         font-weight: 700;
         margin-top: 3px;
         letter-spacing: 1.08px;
-        text-shadow: 0 0 2px #fff2;
       }
       .goleada {
         padding: 12px 10px 10px 10px;
@@ -223,7 +208,6 @@
         color: #e32636;
         font-size: 1.07em;
         margin-bottom: 24px;
-        letter-spacing: 1px;
       }
       .timeline {
         position: relative;
@@ -255,14 +239,12 @@
         color: #e32636;
         font-weight: 900;
         margin-bottom: 2px;
-        letter-spacing: 1px;
       }
       .timeline-title-event {
         font-size: 1.35em;
         font-weight: 900;
         color: #fff;
         margin-bottom: 2px;
-        letter-spacing: 1px;
       }
       .timeline-description {
         color: #ddd;
@@ -270,32 +252,14 @@
         margin-bottom: 2px;
       }
       @media (max-width: 600px) {
-        main {
-          padding: 10px;
-        }
         .contador-caixa {
           padding: 16px 3vw;
         }
         .contador-numero {
           font-size: 2.3em;
         }
-        .contador-meta {
-          font-size: 1.1em;
-        }
         .timeline-container {
           padding: 12px 2vw 12vw 2vw;
-        }
-        .timeline-title {
-          font-size: 1.3em;
-        }
-        .timeline-title-event {
-          font-size: 1em;
-        }
-        .goleada {
-          font-size: 0.99em;
-        }
-        .jesus-vem {
-          font-size: 1.15em;
         }
       }
     </style>
@@ -310,6 +274,7 @@
         >Queremos o Mister vencedor do Brasileirão e Libertadores 2019!</span
       >
     </header>
+
     <main>
       <section class="contador-caixa" id="contadorSection">
         <div class="contador-grid">
@@ -333,11 +298,12 @@
         <div class="barra-progresso-txt" id="barraProgressoTxt">
           0.00% da meta
         </div>
+
         <button class="apoiar-btn" id="apoiarBtn" onclick="registrarApoio()">
           ✊ EU QUERO JORGE JESUS JÁ!
         </button>
         <div class="contador-assinar-msg" id="msgAssinou">
-          Clique e apoie! Você pode votar de novo a cada acesso/atualização.
+          A carregar contador global...
         </div>
       </section>
 
@@ -399,56 +365,92 @@
         </div>
       </section>
     </main>
+
     <footer
       class="goleada"
       style="border-top: 2.5px solid #e32636; max-width: 700px"
     >
       Diretoria omissa: <b style="color: #e32636">Bap</b> e
-      <b style="color: gold">Boto</b> estão afundando o clube. <br />
+      <b style="color: gold">Boto</b> estão a afundar o clube. <br />
       Ouça a torcida e traga
       <b style="font-size: 1.15em; color: #ffe483; text-shadow: 0 0 12px #fe9"
         >JORGE JESUS JÁ!</b
       >
     </footer>
+
     <script>
-      // Configuração
+      // ==========================================
+      // LINK DA TUA PLANILHA INTEGRADO
+      // ==========================================
+      const SCRIPT_URL =
+        "https://script.google.com/macros/s/AKfycbzKkOU5YI9uPHaBuTGq0wbsDpKItqfcjybWYHrZDOezvt8_QOyZiKWXS_SXPlQg75oHIQ/exec";
+
       const META = 100000;
-      // Recupera votos acumulados do localStorage
-      let apoios = parseInt(localStorage.getItem("foraLJ_total_apoios") || 0);
-      let podeVotar = true;
+      let apoiosGlobais = 0;
+      let jaVotou = localStorage.getItem("ja_votou_jj") === "sim";
 
-      atualizarContador();
+      // Carrega o número total ao abrir a página
+      window.onload = () => {
+        document.getElementById("timeline-hoje").innerText =
+          new Date().toLocaleDateString("pt-BR");
+        buscarVotosDoBanco();
+      };
 
-      function atualizarContador() {
+      function buscarVotosDoBanco() {
+        fetch(SCRIPT_URL)
+          .then((response) => response.json())
+          .then((data) => {
+            apoiosGlobais = data.votos;
+            atualizarInterface();
+          })
+          .catch((error) => {
+            console.error("Erro ao ler dados:", error);
+            document.getElementById("msgAssinou").innerText =
+              "Erro ao conectar com a base de dados.";
+          });
+      }
+
+      function atualizarInterface() {
         document.getElementById("numApoios").innerText =
-          apoios.toLocaleString("pt-BR");
-        let perc = Math.min(apoios / META, 1) * 100;
+          apoiosGlobais.toLocaleString("pt-BR");
+
+        let perc = Math.min(apoiosGlobais / META, 1) * 100;
         document.getElementById("barraProgresso").style.width = perc + "%";
         document.getElementById("barraProgressoTxt").innerText =
           perc.toFixed(2) + "% da meta";
-        document.getElementById("apoiarBtn").disabled = !podeVotar;
-        document.getElementById("msgAssinou").innerText = podeVotar
-          ? "Clique e apoie! Você pode votar de novo a cada acesso/atualização."
-          : "Você já votou nessa visita. Dê F5 e apoie de novo!";
+
+        const secaoContador = document.getElementById("contadorSection");
+        const botao = document.getElementById("apoiarBtn");
+        const msg = document.getElementById("msgAssinou");
+
+        if (jaVotou) {
+          secaoContador.classList.add("assinou");
+          botao.disabled = true;
+          msg.innerText = "Voce ja Votou Obrigado";
+        } else {
+          secaoContador.classList.remove("assinou");
+          botao.disabled = false;
+          msg.innerText = "Clica e apoia a campanha!";
+        }
       }
 
       function registrarApoio() {
-        if (!podeVotar) return;
-        apoios++;
-        localStorage.setItem("foraLJ_total_apoios", apoios);
-        podeVotar = false;
-        atualizarContador();
+        if (jaVotou) return;
+
+        // Trava visualmente para evitar duplo clique
+        jaVotou = true;
+        localStorage.setItem("ja_votou_jj", "sim");
+        atualizarInterface();
+
+        // Envia o voto para somar no Google Planilhas
+        fetch(SCRIPT_URL, { method: "POST" })
+          .then((response) => response.json())
+          .then((data) => {
+            apoiosGlobais = data.votos;
+            atualizarInterface();
+          })
+          .catch((error) => console.error("Erro ao registar voto:", error));
       }
-
-      // Sempre pode votar 1x por acesso (após F5, reseta)
-      window.onload = () => {
-        podeVotar = true;
-        atualizarContador();
-      };
-
-      // Linha do tempo - HOJE
-      document.getElementById("timeline-hoje").innerText =
-        new Date().toLocaleDateString("pt-BR");
     </script>
   </body>
 </html>
