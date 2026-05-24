@@ -56,7 +56,6 @@
         letter-spacing: 0.7px;
       }
 
-      /* CONTADOR PETIÇÃO */
       .contador-caixa {
         margin: 35px auto 8px auto;
         background: #111;
@@ -179,8 +178,6 @@
         letter-spacing: 1.08px;
         text-shadow: 0 0 2px #fff2;
       }
-
-      /* Goleada e Chamada */
       .goleada {
         padding: 12px 10px 10px 10px;
         font-size: 1.13em;
@@ -205,8 +202,6 @@
         padding: 7px;
         border-radius: 9px;
       }
-
-      /* Timeline e aproveitamento igual entrega anterior */
       .timeline-container {
         background: #161616;
         border-radius: 13px;
@@ -274,7 +269,6 @@
         font-size: 0.98em;
         margin-bottom: 2px;
       }
-      /* Responsivo */
       @media (max-width: 600px) {
         main {
           padding: 10px;
@@ -343,8 +337,7 @@
           ✊ EU QUERO JORGE JESUS JÁ!
         </button>
         <div class="contador-assinar-msg" id="msgAssinou">
-          É só 1 apoio por pessoa. Ao clicar, você contribui para o Mengão
-          voltar ao topo!
+          Clique e apoie! Você pode votar de novo a cada acesso/atualização.
         </div>
       </section>
 
@@ -357,7 +350,6 @@
         >
       </section>
 
-      <!-- Linha do tempo igual ao anterior, pode customizar mais -->
       <section class="timeline-container">
         <div class="timeline-title">
           A <span class="red">VERGONHA</span> ORGANIZADA
@@ -419,47 +411,44 @@
       >
     </footer>
     <script>
-      // ----------- CONTADOR CONFIG ---------
+      // Configuração
       const META = 100000;
-      let apoios = localStorage.getItem("foraLJ_apoios") || 0;
-      let assinou = localStorage.getItem("foraLJ_jaapoiou") === "1";
-      apoios = parseInt(apoios);
+      // Recupera votos acumulados do localStorage
+      let apoios = parseInt(localStorage.getItem("foraLJ_total_apoios") || 0);
+      let podeVotar = true;
+
+      atualizarContador();
 
       function atualizarContador() {
         document.getElementById("numApoios").innerText =
           apoios.toLocaleString("pt-BR");
-        // Barra de progresso
         let perc = Math.min(apoios / META, 1) * 100;
         document.getElementById("barraProgresso").style.width = perc + "%";
         document.getElementById("barraProgressoTxt").innerText =
           perc.toFixed(2) + "% da meta";
-      }
-      atualizarContador();
-      if (assinou) {
-        document.getElementById("contadorSection").classList.add("assinou");
-        document.getElementById("msgAssinou").innerText =
-          "Você já deu sua assinatura!";
-        document.getElementById("apoiarBtn").innerText = "Você já apoiou!";
-        document.getElementById("apoiarBtn").disabled = true;
+        document.getElementById("apoiarBtn").disabled = !podeVotar;
+        document.getElementById("msgAssinou").innerText = podeVotar
+          ? "Clique e apoie! Você pode votar de novo a cada acesso/atualização."
+          : "Você já votou nessa visita. Dê F5 e apoie de novo!";
       }
 
       function registrarApoio() {
-        if (localStorage.getItem("foraLJ_jaapoiou") === "1") return false;
+        if (!podeVotar) return;
         apoios++;
-        localStorage.setItem("foraLJ_apoios", apoios);
-        localStorage.setItem("foraLJ_jaapoiou", "1");
+        localStorage.setItem("foraLJ_total_apoios", apoios);
+        podeVotar = false;
         atualizarContador();
-        document.getElementById("contadorSection").classList.add("assinou");
-        document.getElementById("msgAssinou").innerText =
-          "Você já deu sua assinatura!";
-        document.getElementById("apoiarBtn").innerText = "Você já apoiou!";
-        document.getElementById("apoiarBtn").disabled = true;
       }
 
-      // Timeline HOJE
-      let agora = new Date(),
-        nowBR = agora.toLocaleDateString("pt-BR");
-      document.getElementById("timeline-hoje").innerText = nowBR;
+      // Sempre pode votar 1x por acesso (após F5, reseta)
+      window.onload = () => {
+        podeVotar = true;
+        atualizarContador();
+      };
+
+      // Linha do tempo - HOJE
+      document.getElementById("timeline-hoje").innerText =
+        new Date().toLocaleDateString("pt-BR");
     </script>
   </body>
 </html>
