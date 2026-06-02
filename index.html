@@ -403,7 +403,7 @@
       }
 
       /* ════════════════════════════════════════
-     CAPA
+      CAPA
   ════════════════════════════════════════ */
       .cover-slide {
         justify-content: center;
@@ -512,7 +512,6 @@
     <div id="progress-bar"></div>
 
     <div class="slides-wrapper" id="deck">
-      <!-- ══════════════ SLIDE 0 — CAPA ══════════════ -->
       <div class="slide active cover-slide" id="s0">
         <div class="cover-institution">
           <div class="cover-inst-name">Instituto Federal de Sergipe</div>
@@ -543,7 +542,6 @@
         </div>
       </div>
 
-      <!-- ══════════════ SLIDE 1 — O QUE É UMA ENGINE ══════════════ -->
       <div class="slide" id="s1">
         <div class="slide-tag">// 01 — Contextualização</div>
         <h2>O Que é uma <span class="acc">Game Engine</span>?</h2>
@@ -581,7 +579,6 @@
         </div>
       </div>
 
-      <!-- ══════════════ SLIDE 2 — GAME LOOP ══════════════ -->
       <div class="slide" id="s2">
         <div class="slide-tag">// 02 — Como a Engine Funciona</div>
         <h2>O <span class="acc">Game Loop</span></h2>
@@ -624,7 +621,6 @@
         </div>
       </div>
 
-      <!-- ══════════════ SLIDE 3 — O DESAFIO ══════════════ -->
       <div class="slide" id="s3">
         <div class="slide-tag">// 03 — O Desafio de TI</div>
         <h2>O Grande <span class="acc">Desafio</span></h2>
@@ -679,7 +675,6 @@
         </div>
       </div>
 
-      <!-- ══════════════ SLIDE 4 — DERIVADAS NA FÍSICA ══════════════ -->
       <div class="slide" id="s4">
         <div class="slide-tag">// 04 — Derivadas Aplicadas</div>
         <h2>Derivadas na <span class="acc">Física dos Jogos</span></h2>
@@ -719,30 +714,29 @@
         </div>
       </div>
 
-      <!-- ══════════════ SLIDE 5 — O EXEMPLO ══════════════ -->
       <div class="slide" id="s5">
         <div class="slide-tag">// 05 — Exemplo Prático</div>
-        <div class="two-col"> 
+        <div class="two-col">
           <h2>O <span class="acc">Lançador de Granadas</span></h2>
           <img
             src="Video Project 3.gif"
             alt="Free Fire gif"
-              style="
-                width: 100%;
-                max-height: 220px;
-                object-fit: cover;
-                object-position: center 30%;
-                border-radius: 10px;
-                border: 1px solid rgba(0, 0, 0, 0);
-                margin-bottom: 0;
-                display: block;
-              "
-            />
-            <div>
+            style="
+              width: 100%;
+              max-height: 220px;
+              object-fit: cover;
+              object-position: center 30%;
+              border-radius: 10px;
+              border: 1px solid rgba(0, 0, 0, 0);
+              margin-bottom: 0;
+              display: block;
+            "
+          />
+          <div>
             <p style="margin-bottom: 18px">
               Imagine que estamos programando a física do disparo de um
-              <span class="hl-cyan">lançador de granadas</span> em um jogo Shoter —
-              Exemplo Free fire.
+              <span class="hl-cyan">lançador de granadas</span> em um jogo
+              Shoter — Exemplo Free fire.
             </p>
             <p style="margin-bottom: 18px">
               O motor precisa descobrir a
@@ -798,7 +792,6 @@
         </div>
       </div>
 
-      <!-- ══════════════ SLIDE 6 — PASSO I ══════════════ -->
       <div class="slide" id="s6">
         <div class="slide-tag">// 06 — Passo I: A Função de Posição</div>
         <h2>I. Definindo a <span class="acc">Trajetória</span></h2>
@@ -839,7 +832,6 @@
         </div>
       </div>
 
-      <!-- ══════════════ SLIDE 7 — PASSO II ══════════════ -->
       <div class="slide" id="s7">
         <div class="slide-tag">// 07 — Passo II: A Derivada</div>
         <h2>II. Encontrando o <span class="acc">Ponto Crítico</span></h2>
@@ -868,7 +860,6 @@
         </div>
       </div>
 
-      <!-- ══════════════ SLIDE 8 — PASSO III ══════════════ -->
       <div class="slide" id="s8">
         <div class="slide-tag">// 08 — Passo III: O Valor Máximo</div>
         <h2>III. Calculando a <span class="acc">Altura Máxima</span></h2>
@@ -894,93 +885,332 @@
         </div>
       </div>
 
-      <!-- ══════════════ SLIDE 9 — VISÃO DE TI ══════════════ -->
       <div class="slide" id="s9">
-        <div class="slide-tag">// 09 — A Visão de Sistemas de Informação</div>
-        <h2>Por Que Isso <span class="acc">Importa</span>?</h2>
-        <p style="margin-bottom: 20px">
-          Para um desenvolvedor ou analista de sistemas, isso não é preciosismo
-          matemático — é uma questão de
-          <span class="hl-cyan">performance de hardware</span>.
+        <div class="slide-tag">
+          // 09 — Exemplo Prático: RPGs de Ação e Soulslikes
+        </div>
+        <div class="two-col">
+          <div>
+            <h2>Dano por Velocidade em <span class="acc">Combates</span></h2>
+            <p style="margin-bottom: 18px">
+              Em jogos no estilo Soulslike (como Elden Ring e Dark Souls),
+              quando o personagem ataca com uma arma pesada (espadão colossal ou
+              martelo mágico), a animação do golpe não tem uma velocidade
+              constante.
+            </p>
+            <p>
+              O personagem faz força para levantar a arma de forma lenta e, em
+              seguida, ela desce com força total muito rápido.
+            </p>
+          </div>
+          <div>
+            <img
+              src="INSIRA_O_GIF_DO_RPG_AQUI.gif"
+              alt="GIF Espadão RPG"
+              style="
+                width: 100%;
+                height: 180px;
+                object-fit: cover;
+                object-position: center;
+                border-radius: 10px;
+                border: 1px dashed var(--cyan);
+                margin-bottom: 20px;
+                display: block;
+              "
+            />
+
+            <div class="card">
+              <div class="card-icon">⚔️</div>
+              <h3>O Ponto de Dano Máximo</h3>
+              <p>
+                O dano causado no inimigo não é fixo. Ele depende puramente da
+                <strong>velocidade instantânea</strong> da arma no exato
+                milissegundo do impacto na "hitbox".
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide" id="s10">
+        <div class="slide-tag">// 10 — Passo I: A Função da Animação</div>
+        <h2>I. Posição da <span class="acc">Arma</span></h2>
+        <p style="margin-bottom: 18px">
+          Para iniciar o cálculo do dano crítico, a engine precisa mapear o arco
+          do movimento. Ela estabelece a posição S (em graus) do espadão durante
+          os 2 segundos do ataque:
         </p>
-        <div class="cards cols-2">
-          <div class="card">
-            <div class="card-icon">🎮</div>
-            <h3>Cenário Real — Call of Duty</h3>
+        <div class="formula-box">
+          <div class="formula" style="font-size: 40px">S(t) = -t³ + 3t²</div>
+          <div class="label">função de posição da animação do golpe</div>
+        </div>
+      </div>
+
+      <div class="slide" id="s11">
+        <div class="slide-tag">// 11 — Passo II: A Primeira Derivada</div>
+        <h2>II. Velocidade da <span class="acc">Arma</span></h2>
+        <p style="margin-bottom: 18px">
+          Para descobrir o quão rápido a arma está descendo em qualquer instante
+          da animação, nós aplicamos a primeira derivada na função de posição:
+        </p>
+        <div class="code-block">
+          S(t) = <span class="hlo">-t³ + 3t²</span>
+
+          V(t) = S'(t) = <span class="hl">-3t² + 6t</span>
+        </div>
+        <p style="margin-top: 18px">
+          A função V(t) agora nos entrega a velocidade instantânea do golpe a
+          cada milissegundo de simulação.
+        </p>
+      </div>
+
+      <div class="slide" id="s12">
+        <div class="slide-tag">// 12 — Passo III: A Segunda Derivada</div>
+        <h2>III. O Dano <span class="acc">Crítico</span></h2>
+        <p style="margin-bottom: 10px">
+          Para achar o momento exato em que a espada atinge sua velocidade
+          máxima, aplicamos a segunda derivada (aceleração) e igualamos a zero:
+        </p>
+        <div class="code-block">
+          A(t) = V'(t) = <span class="hlg">-6t + 6</span>
+        </div>
+        <div class="solve-steps">
+          <div class="solve-line">
+            A(t) = 0 <span class="arrow">→</span> -6t + 6 = 0
+          </div>
+          <div class="solve-line">
+            -6t = -6 <span class="arrow">→</span> t = 1
+          </div>
+          <div class="solve-line highlight">
+            ✦ t = <span style="font-size: 30px; margin: 0 6px">1</span> segundo
+          </div>
+        </div>
+        <div class="result-callout" style="padding: 15px; margin-top: 15px">
+          <div class="result-label" style="font-size: 18px">
+            A engine descobre que no exato <strong>1 segundo</strong> da
+            animação, a aceleração zera e a arma atinge o pico de velocidade,
+            aplicando o multiplicador de dano máximo no chefe.
+          </div>
+        </div>
+      </div>
+
+      <div class="slide" id="s13">
+        <div class="slide-tag">
+          // 13 — Exemplo Prático: Jogos de Terror e Sobrevivência
+        </div>
+        <div class="two-col">
+          <div>
+            <h2>Áudio Dinâmico e <span class="acc">Tensão</span></h2>
+            <p style="margin-bottom: 18px">
+              Em jogos assimétricos onde um Assassino persegue os jogadores
+              (como <strong>Dead By Daylight</strong> ou
+              <strong>Identity V</strong>), a música de perseguição não toca de
+              forma aleatória.
+            </p>
             <p>
-              10 jogadores atirando, jogando explosivos e pulando
-              <em>ao mesmo tempo</em>. São
-              <strong>dezenas de trajetórias</strong> acontecendo no mesmo
-              milissegundo.
+              Os batimentos cardíacos e as trilhas de perseguição reagem
+              matematicamente à proximidade entre o monstro e o sobrevivente.
+            </p>
+          </div>
+          <div>
+            <img
+              src="INSIRA_O_GIF_DE_TERROR_AQUI.gif"
+              alt="GIF Jogo de Terror"
+              style="
+                width: 100%;
+                height: 200px;
+                object-fit: cover;
+                object-position: center;
+                border-radius: 10px;
+                border: 1px dashed var(--cyan);
+                margin-bottom: 15px;
+                display: block;
+              "
+            />
+            <div class="card">
+              <div class="card-icon">🎧</div>
+              <h3>Trilha Responsiva</h3>
+              <p>
+                O áudio acompanha o nível de perigo. Para fazer isso sem travar
+                a CPU, a engine usa Cálculo Diferencial para controlar a música.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide" id="s14">
+        <div class="slide-tag">// 14 — Passo I: A Função da Distância</div>
+        <h2>I. Mapeando a <span class="acc">Distância</span></h2>
+        <p style="margin-bottom: 18px">
+          Definimos a distância D (em metros) entre o monstro e o jogador em
+          função do tempo t (em segundos) através da seguinte equação:
+        </p>
+        <div class="formula-box">
+          <div class="formula" style="font-size: 40px">D(t) = 40 - t²</div>
+          <div class="label">equação de aproximação do perseguidor</div>
+        </div>
+        <div class="cards cols-2" style="margin-top: 22px">
+          <div class="card">
+            <h3 style="color: var(--cyan)">Termo 40</h3>
+            <p>
+              Representa a distância inicial de avistamento (40 metros) quando a
+              perseguição começa.
             </p>
           </div>
           <div class="card">
-            <div class="card-icon">🔁</div>
-            <h3>Sem Derivada = Força Bruta</h3>
+            <h3 style="color: var(--orange)">Termo -t²</h3>
             <p>
-              O processador precisaria rodar loops
-              <span class="badge">while</span> ou
-              <span class="badge">for</span> testando cada frame passo a passo
-              até achar o máximo.
-            </p>
-          </div>
-          <div class="card">
-            <div class="card-icon">⚡</div>
-            <h3>Com Derivada = Valor Exato</h3>
-            <p>
-              A derivada entrega o <strong>resultado preciso</strong> no momento
-              em que a função de disparo é ativada. Uma operação, não mil.
-            </p>
-          </div>
-          <div class="card">
-            <div class="card-icon">🖥️</div>
-            <h3>CPU Livre para Mais</h3>
-            <p>
-              O processamento economizado é usado para renderizar
-              <strong>luzes, sombras e IA</strong>, garantindo fluidez na
-              experiência final.
+              Indica que o perseguidor está acelerando e reduzindo a distância
+              de forma progressiva.
             </p>
           </div>
         </div>
       </div>
 
-      <!-- ══════════════ SLIDE 10 — CONCLUSÃO ══════════════ -->
-      <div class="slide" id="s10">
-        <div class="slide-tag">// 10 — Conclusão</div>
+      <div class="slide" id="s15">
+        <div class="slide-tag">// 15 — Passo II: A Taxa de Aproximação</div>
+        <h2>II. A Derivada da <span class="acc">Distância</span></h2>
+        <p style="margin-bottom: 18px">
+          Para determinar a velocidade instantânea com que a distância está
+          encolhendo, o sistema calcula a primeira derivada aplicando a Regra da
+          Potência:
+        </p>
+        <div class="code-block">
+          D(t) = <span class="hlo">40 - t²</span>
+
+          D'(t) = d/dt(<span class="hlo">40 - t²</span>) D'(t) =
+          <span class="hl">-2t</span>
+        </div>
+        <p style="margin-top: 18px; text-align: center; color: var(--muted)">
+          O <strong>sinal negativo</strong> no resultado confirma
+          matematicamente que a distância entre os dois elementos está
+          diminuindo ao longo do tempo.
+        </p>
+      </div>
+
+      <div class="slide" id="s16">
+        <div class="slide-tag">
+          // 16 — Passo III: Substituição e Aplicação no Áudio
+        </div>
+        <h2>III. O Áudio <span class="acc">Dinâmico</span></h2>
+        <p style="margin-bottom: 20px">
+          A engine realiza a leitura da derivada em momentos distintos para
+          ditar o comportamento da trilha sonora:
+        </p>
+        <div class="steps" style="gap: 15px">
+          <div class="step" style="padding: 15px 20px">
+            <div class="step-num" style="font-size: 24px; color: var(--cyan)">
+              1s
+            </div>
+            <div class="step-body">
+              <h3 style="color: var(--cyan)">Início da Perseguição (t = 1)</h3>
+              <div
+                class="code-block"
+                style="padding: 10px 15px; font-size: 18px; margin: 8px 0"
+              >
+                D'(1) = -2(1) = <span class="hl">-2 m/s</span>
+              </div>
+              <p style="font-size: 16px">
+                A taxa de aproximação é moderada. O sistema dispara um efeito
+                sonoro de suspense lento e contido.
+              </p>
+            </div>
+          </div>
+          <div class="step" style="padding: 15px 20px">
+            <div class="step-num" style="font-size: 24px; color: var(--orange)">
+              4s
+            </div>
+            <div class="step-body">
+              <h3 style="color: var(--orange)">Auge da Perseguição (t = 4)</h3>
+              <div
+                class="code-block"
+                style="padding: 10px 15px; font-size: 18px; margin: 8px 0"
+              >
+                D'(4) = -2(4) = <span class="hlo">-8 m/s</span>
+              </div>
+              <p style="font-size: 16px">
+                A derivada indica um encurtamento crítico e agressivo do espaço.
+                O código absorve isso e a música fica rápida e desesperadora.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide" id="s17">
+        <div class="slide-tag">// 17 — A Visão de Sistemas de Informação</div>
+        <h2>Por Que Isso <span class="acc">Importa</span>?</h2>
+        <p style="margin-bottom: 20px">
+          Para um desenvolvedor ou analista de sistemas, a matemática não é
+          apenas teoria, é <strong>otimização de hardware e recursos</strong>.
+        </p>
+        <div class="cards cols-3">
+          <div class="card">
+            <div class="card-icon">🚀</div>
+            <h3>FPS</h3>
+            <p>
+              Entregar a altura exata do projétil numa única equação de 1º grau
+              poupa a CPU de simular dezenas de frames inúteis em tempo real.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">⚔️</div>
+            <h3>Soulslikes</h3>
+            <p>
+              Derivadas sucessivas determinam o pico de aceleração
+              instantaneamente, garantindo um combate responsivo e sem perda de
+              pacotes (lag).
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🎵</div>
+            <h3>Terror</h3>
+            <p>
+              O processamento do áudio fica amarrado a uma variável matemática
+              contínua D'(t), descartando a necessidade de scripts complexos e
+              pesados.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide" id="s18">
+        <div class="slide-tag">// 18 — Conclusão Final</div>
         <h2><span class="acc">Conclusão</span></h2>
         <div class="conc-list">
           <div class="conc-item">
             <span class="ci">📐</span>
-            <span
-              >Ao <strong>igualar a 1ª derivada a zero</strong>, o motor gráfico
-              encontra o ponto exato onde a velocidade vertical se anula —
-              marcando o ápice da trajetória.</span
-            >
+            <span>
+              <strong>Nos Tiroteios (FPS):</strong> A 1ª derivada localiza o
+              exato ápice parabólico de explosivos numa única operação
+              instantânea.
+            </span>
           </div>
           <div class="conc-item">
-            <span class="ci">🚀</span>
-            <span
-              >A granada atinge <strong>h = 47 metros</strong> no instante
-              <strong>t = 3 segundos</strong>, calculado em uma única equação de
-              primeiro grau.</span
-            >
+            <span class="ci">⚔️</span>
+            <span>
+              <strong>Nos Combates (RPGs):</strong> Derivadas sucessivas
+              encontram precisamente o momento de velocidade máxima para aplicar
+              danos críticos baseados no peso da arma.
+            </span>
           </div>
           <div class="conc-item">
-            <span class="ci">⚡</span>
-            <span
-              >Sem derivadas, a engine precisaria de
-              <strong>centenas de iterações</strong> por trajetória. Com
-              derivadas, é <strong>uma operação instantânea</strong>.</span
-            >
+            <span class="ci">🎧</span>
+            <span>
+              <strong>Na Imersão (Terror):</strong> A taxa de variação da
+              distância dita proceduralmente a tensão sonora sem sobrecarregar a
+              memória com loops pesados.
+            </span>
           </div>
-          <div class="conc-item">
+          <div class="conc-item" style="border-left-color: var(--green)">
             <span class="ci">🎓</span>
-            <span
-              >Isso prova que a
-              <strong>otimização matemática do Cálculo 1</strong> é o que
-              permite aos jogos 3D rodarem simulações físicas complexas sem
-              travar o processador.</span
-            >
+            <span>
+              Isso prova que a
+              <strong>otimização matemática do Cálculo 1</strong> é a verdadeira
+              ponte que permite que sistemas complexos, colisões e experiências
+              interativas rodem suavemente em nossas máquinas.
+            </span>
           </div>
         </div>
       </div>
